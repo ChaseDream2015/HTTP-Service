@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../src/base/common;../../src/base/include;../../src/base/socket;../../src/base/thread;../../src/base/thread/msg-worker;../../src/base/thread/task-worker;../../src/base/thread/thread-worker;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../src/base/common;../../src/base/include;../../src/base/socket;../../src/base/thread;../../src/base/thread/msg-worker;../../src/base/thread/task-worker;../../src/base/thread/thread-worker;../../src/network;../../src/http-transaction;../../src/service;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -101,6 +101,11 @@
     <ClCompile Include="..\..\src\base\thread\msg-worker\ECMsgWorker.cpp" />
     <ClCompile Include="..\..\src\base\thread\task-worker\ECTaskWorker.cpp" />
     <ClCompile Include="..\..\src\base\thread\thread-worker\ECThreadWorker.cpp" />
+    <ClCompile Include="..\..\src\network\Config.cpp" />
+    <ClCompile Include="..\..\src\network\Connection.cpp" />
+    <ClCompile Include="..\..\src\network\ConnectionManager.cpp" />
+    <ClCompile Include="..\..\src\network\SocketManager.cpp" />
+    <ClCompile Include="..\..\src\test\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\base\common\ECConfig.h" />
@@ -138,6 +143,10 @@
     <ClInclude Include="..\..\src\base\thread\msg-worker\ECMsgWorker.h" />
     <ClInclude Include="..\..\src\base\thread\task-worker\ECTaskWorker.h" />
     <ClInclude Include="..\..\src\base\thread\thread-worker\ECThreadWorker.h" />
+    <ClInclude Include="..\..\src\network\Config.h" />
+    <ClInclude Include="..\..\src\network\Connection.h" />
+    <ClInclude Include="..\..\src\network\ConnectionManager.h" />
+    <ClInclude Include="..\..\src\network\SocketManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,6 +30,7 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include "ECError.h"
 #include "ECOSUtil.h"
 
 #ifdef EC_OS_Win32
@@ -65,19 +66,92 @@ EC_U32 ecGetCPUCores()
     return nCores;
 }
 
-EC_VOID ecGetSystemDate(EC_Date *pDate)
+EC_U32 ecGetRandNumber()
+{
+    srand((EC_U32)time(NULL));
+    return (EC_U32)rand();
+}
+
+EC_U32 ecGetSystemTime()
+{
+    EC_U32 nRet = 0;
+
+#ifdef EC_OS_Win32
+    nRet = GetTickCount();
+#elif defined EC_OS_Linux
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    nRet = (ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
+#elif defined EC_OS_MacOS
+    /* TODO */
+#elif defined EC_OS_iOS
+    timeval curTime;
+    gettimeofday(&curTime, EC_NULL);
+    nRet = (EC_U32)curTime.tv_sec * 1000 + (EC_U32)(curTime.tv_usec / 1000);
+#elif defined EC_OS_Android
+    /* TODO */
+#endif
+
+    return nRet;
+}
+
+EC_U64 ecGetSystemTimeU()
+{
+    EC_U64 nRet = 0;
+
+#ifdef EC_OS_Win32
+    LARGE_INTEGER nFreq;
+    LARGE_INTEGER nCount;
+    QueryPerformanceCounter(&nCount);
+    QueryPerformanceFrequency(&nFreq);
+    nRet = nCount.QuadPart * 1000000 / nFreq.QuadPart;
+#elif defined EC_OS_Linux
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    nRet = (ts.tv_sec * 1000 * 1000 + ts.tv_nsec / 1000);
+#elif defined EC_OS_MacOS
+    /* TODO */
+#elif defined EC_OS_iOS
+    timeval curTime;
+    gettimeofday(&curTime, EC_NULL);
+    nRet = (EC_U32)curTime.tv_sec * 1000 * 1000 + (EC_U32)curTime.tv_usec;
+#elif defined EC_OS_Android
+    /* TODO */
+#endif
+
+    return nRet;
+}
+
+EC_U32 ecInitSocketLibs()
 {
 #ifdef EC_OS_Win32
-	/* TODO */
+    WSADATA wsaData;
+    WORD wVersionRequested;
+    wVersionRequested = MAKEWORD(1, 1);
+    if (WSAStartup(wVersionRequested, &wsaData) != 0)
+    {
+        return EC_Err_OperatorFaild;
+    }
+    if (LOBYTE(wsaData.wVersion) != 1 || HIBYTE(wsaData.wVersion) != 1)
+    {
+        WSACleanup();
+        return EC_Err_OperatorFaild;;
+    }
 #elif defined EC_OS_Linux
-	/* TODO */
+    /* TODO */
 #elif defined EC_OS_MacOS
-	/* TODO */
+    /* TODO */
 #elif defined EC_OS_iOS
-	/* TODO */
+    /* TODO */
 #elif defined EC_OS_Android
-	/* TODO */
+    /* TODO */
 #endif
+    return EC_Err_None;
+}
+
+EC_U32 ecUninitSocketLibs()
+{
+    return  WSACleanup();
 }
 
 EC_VOID ecSleep(EC_U32 nTime)
@@ -117,58 +191,19 @@ EC_VOID ecUSleep(EC_U32 nTime)
 #endif
 }
 
-EC_U32 ecGetSystemTime()
+EC_VOID ecGetSystemDate(EC_Date *pDate)
 {
-    EC_U32 nRet = 0;
-
 #ifdef EC_OS_Win32
-    nRet = GetTickCount();
+    /* TODO */
 #elif defined EC_OS_Linux
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    nRet = (ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
-#elif defined EC_OS_MacOS
-	/* TODO */
-#elif defined EC_OS_iOS
-    timeval curTime;
-    gettimeofday(&curTime, EC_NULL);
-    nRet = (EC_U32)curTime.tv_sec*1000 + (EC_U32)(curTime.tv_usec/1000);
-#elif defined EC_OS_Android
-	/* TODO */
-#endif
-
-    return nRet;
-}
-
-EC_U32 ecGetRandNumber()
-{
-    srand( (EC_U32)time(NULL) );
-    return (EC_U32)rand();
-}
-
-EC_U64  ecGetSystemTimeU()
-{
-    EC_U64 nRet = 0;
-
-#ifdef EC_OS_Win32
-    LARGE_INTEGER nFreq;
-    LARGE_INTEGER nCount;
-    QueryPerformanceCounter(&nCount);
-    QueryPerformanceFrequency(&nFreq);
-    nRet = nCount.QuadPart * 1000000/ nFreq.QuadPart;
-#elif defined EC_OS_Linux
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    nRet = (ts.tv_sec * 1000 * 1000 + ts.tv_nsec / 1000);
+    /* TODO */
 #elif defined EC_OS_MacOS
     /* TODO */
 #elif defined EC_OS_iOS
-    timeval curTime;
-    gettimeofday(&curTime, EC_NULL);
-    nRet = (EC_U32)curTime.tv_sec*1000*1000 + (EC_U32)curTime.tv_usec;
+    /* TODO */
 #elif defined EC_OS_Android
     /* TODO */
 #endif
-
-    return nRet;
 }
+
+

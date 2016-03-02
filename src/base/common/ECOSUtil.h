@@ -38,9 +38,11 @@ extern "C" {
 #endif
 
 EC_U32  ecGetCPUCores();
+EC_U32  ecGetRandNumber();
 EC_U32  ecGetSystemTime();
 EC_U64  ecGetSystemTimeU();
-EC_U32  ecGetRandNumber();
+EC_U32  ecInitSocketLibs();
+EC_U32  ecUninitSocketLibs();
 EC_VOID ecSleep(EC_U32 nTime);
 EC_VOID ecUSleep(EC_U32 nTime);
 EC_VOID ecGetSystemDate(EC_Date *pDate);

@@ -34,6 +34,9 @@
     <Filter Include="base\thread\task-worker">
       <UniqueIdentifier>{337efa59-0d2d-44b1-9190-30003b976c26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{ed2e82ad-ae09-4223-9e0e-bab2308e4aa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\base\common\ECConfig.cpp">
@@ -98,6 +101,21 @@
     </ClCompile>
     <ClCompile Include="..\..\src\base\thread\thread-worker\ECThreadWorker.cpp">
       <Filter>base\thread\thread-worker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\network\Connection.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\network\ConnectionManager.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\network\Config.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\network\SocketManager.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\test\main.cpp">
+      <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +223,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\base\thread\thread-worker\ECThreadWorker.h">
       <Filter>base\thread\thread-worker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\network\Connection.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\network\ConnectionManager.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\network\Config.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\network\SocketManager.h">
+      <Filter>network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
