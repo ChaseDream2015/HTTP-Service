@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="base">
+      <UniqueIdentifier>{c06eb563-6582-4472-87b9-1644e972d76a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="http-transaction">
+      <UniqueIdentifier>{48a096bf-a9bc-4408-bac9-b4cc97163721}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="service">
+      <UniqueIdentifier>{5ba1f4fc-7566-4f3f-9d8e-a9e5fbb9bb8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base\common">
+      <UniqueIdentifier>{30248342-9039-4851-b73c-7b81596a0dc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base\include">
+      <UniqueIdentifier>{c084e05c-4e00-448d-8620-686f46de8552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base\thread">
+      <UniqueIdentifier>{7e4fefff-ec73-4c27-9744-75bdcdb40948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base\socket">
+      <UniqueIdentifier>{aa506575-a39c-4184-932e-ec256441ef86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network">
+      <UniqueIdentifier>{66c7d82a-451e-4488-8cd2-c3a3753fb9a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base\thread\msg-worker">
+      <UniqueIdentifier>{9ae10d15-2a25-470b-8727-93f89047bf61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base\thread\thread-worker">
+      <UniqueIdentifier>{c4d7b1da-330d-469e-bbdc-8619fc952fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base\thread\task-worker">
+      <UniqueIdentifier>{337efa59-0d2d-44b1-9190-30003b976c26}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\base\common\ECConfig.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\common\ECDllLoader.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\common\ECFile.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\common\ECLibraryLoader.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\common\ECMathUtil.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\common\ECMemOP.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\common\ECOSUtil.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\common\ECString.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\common\ECStringOP.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\socket\ECSocket.cpp">
+      <Filter>base\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\socket\ECTCPSocket.cpp">
+      <Filter>base\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\socket\ECUDPSocket.cpp">
+      <Filter>base\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\thread\ECAutoLock.cpp">
+      <Filter>base\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\thread\ECMutex.cpp">
+      <Filter>base\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\thread\ECSemaphore.cpp">
+      <Filter>base\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\thread\ECSignal.cpp">
+      <Filter>base\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\thread\ECThread.cpp">
+      <Filter>base\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\thread\msg-worker\ECMsgHandler.cpp">
+      <Filter>base\thread\msg-worker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\thread\msg-worker\ECMsgWorker.cpp">
+      <Filter>base\thread\msg-worker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\thread\task-worker\ECTaskWorker.cpp">
+      <Filter>base\thread\task-worker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\thread\thread-worker\ECThreadWorker.cpp">
+      <Filter>base\thread\thread-worker</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\base\common\ECConfig.h">
+      <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\common\ECDllLoader.h">
+      <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\common\ECFile.h">
+      <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\common\ECLibraryLoader.h">
+      <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\common\ECMathUtil.h">
+      <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\common\ECMemOP.h">
+      <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\common\ECOSUtil.h">
+      <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\common\ECString.h">
+      <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\common\ECStringOP.h">
+      <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECArray.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECBaseType.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECCompare.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECDictionary.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECDllLib.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECError.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECLog.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECMutableArray.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECNode.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECPrefDef.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECQueue.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECRingQueue.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECStack.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\include\ECType.h">
+      <Filter>base\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\socket\ECSocket.h">
+      <Filter>base\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\socket\ECTCPSocket.h">
+      <Filter>base\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\socket\ECUDPSocket.h">
+      <Filter>base\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\thread\ECAutoLock.h">
+      <Filter>base\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\thread\ECMutex.h">
+      <Filter>base\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\thread\ECSemaphore.h">
+      <Filter>base\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\thread\ECSignal.h">
+      <Filter>base\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\thread\ECThread.h">
+      <Filter>base\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\thread\msg-worker\ECMsgHandler.h">
+      <Filter>base\thread\msg-worker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\thread\msg-worker\ECMsgWorker.h">
+      <Filter>base\thread\msg-worker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\thread\task-worker\ECTaskWorker.h">
+      <Filter>base\thread\task-worker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\thread\thread-worker\ECThreadWorker.h">
+      <Filter>base\thread\thread-worker</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
