@@ -69,6 +69,21 @@ EC_VOID ECSocket::Close()
 #endif
 }
 
+EC_INT ECSocket::GetSocket()
+{
+    return m_socket;
+}
+
+EC_BOOL ECSocket::IsSet(fd_set *pFDSet)
+{
+    EC_BOOL bRet = EC_FALSE;
+    if (EC_NULL != pFDSet)
+    {
+        bRet = FD_ISSET(m_socket, pFDSet);
+    }
+    return bRet;
+}
+
 EC_INT ECSocket::BindAddress(ECSocketAddress *pAddress)
 {
     if (EC_NULL == pAddress)

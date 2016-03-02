@@ -66,6 +66,8 @@ public:
     ECSocket(EC_INT socket);
     virtual ~ECSocket();
     virtual EC_VOID Close();
+    virtual EC_INT GetSocket();
+    virtual EC_BOOL IsSet(fd_set *pFDSet);
     virtual EC_INT BindAddress(ECSocketAddress *pAddress);
     virtual EC_INT SetOptions(int nLevel, int nOptName, const char* pOptVal, int nOptLen);
 
