@@ -123,6 +123,12 @@
     <ClCompile Include="..\..\src\http-transaction\HTTPTransactionManager.cpp">
       <Filter>http-transaction</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\http-transaction\HTTPRequestHeader.cpp">
+      <Filter>http-transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\common\ECBuffer.cpp">
+      <Filter>base\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\base\common\ECConfig.h">
@@ -247,6 +253,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\http-transaction\HTTPTransactionManager.h">
       <Filter>http-transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\http-transaction\HTTPDefine.h">
+      <Filter>http-transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\http-transaction\HTTPRequestHeader.h">
+      <Filter>http-transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\common\ECBuffer.h">
+      <Filter>base\common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
