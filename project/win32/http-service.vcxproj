@@ -101,6 +101,8 @@
     <ClCompile Include="..\..\src\base\thread\msg-worker\ECMsgWorker.cpp" />
     <ClCompile Include="..\..\src\base\thread\task-worker\ECTaskWorker.cpp" />
     <ClCompile Include="..\..\src\base\thread\thread-worker\ECThreadWorker.cpp" />
+    <ClCompile Include="..\..\src\http-transaction\HTTPTransaction.cpp" />
+    <ClCompile Include="..\..\src\http-transaction\HTTPTransactionManager.cpp" />
     <ClCompile Include="..\..\src\network\Config.cpp" />
     <ClCompile Include="..\..\src\network\Connection.cpp" />
     <ClCompile Include="..\..\src\network\ConnectionManager.cpp" />
@@ -143,6 +145,8 @@
     <ClInclude Include="..\..\src\base\thread\msg-worker\ECMsgWorker.h" />
     <ClInclude Include="..\..\src\base\thread\task-worker\ECTaskWorker.h" />
     <ClInclude Include="..\..\src\base\thread\thread-worker\ECThreadWorker.h" />
+    <ClInclude Include="..\..\src\http-transaction\HTTPTransaction.h" />
+    <ClInclude Include="..\..\src\http-transaction\HTTPTransactionManager.h" />
     <ClInclude Include="..\..\src\network\Config.h" />
     <ClInclude Include="..\..\src\network\Connection.h" />
     <ClInclude Include="..\..\src\network\ConnectionManager.h" />

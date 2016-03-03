@@ -117,6 +117,12 @@
     <ClCompile Include="..\..\src\test\main.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\http-transaction\HTTPTransaction.cpp">
+      <Filter>http-transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\http-transaction\HTTPTransactionManager.cpp">
+      <Filter>http-transaction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\base\common\ECConfig.h">
@@ -235,6 +241,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\network\SocketManager.h">
       <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\http-transaction\HTTPTransaction.h">
+      <Filter>http-transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\http-transaction\HTTPTransactionManager.h">
+      <Filter>http-transaction</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
