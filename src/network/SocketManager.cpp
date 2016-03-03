@@ -30,6 +30,8 @@
 
 #include "ECLog.h"
 #include "ECError.h"
+#include "ECOSUtil.h"
+#include "Connection.h"
 #include "SocketManager.h"
 
 #define LISTEN_IP   "0.0.0.0"
@@ -42,6 +44,7 @@ SocketManager::SocketManager()
 :m_isRunning(EC_FALSE)
 ,m_pListenSocket(EC_NULL)
 {
+    m_pConnectionManager = new ConnectionManager(MAX_CON_NUBMBER);
     m_pSocketManagerThread = new ECThread(SocketManagerProc, this, "SocketManager");
 }
 
@@ -49,13 +52,16 @@ SocketManager::~SocketManager()
 {
     if (m_pSocketManagerThread)
     {
-        if (m_pSocketManagerThread->IsThreadActive())
+        if (m_isRunning)
         {
-            m_pSocketManagerThread->WaitStop();
+            Stop();
+            if (m_pConnectionManager)
+                m_pConnectionManager->Stop();
         }
         delete m_pSocketManagerThread;
     }
     if (m_pListenSocket) delete m_pListenSocket;
+    if (m_pConnectionManager) delete m_pConnectionManager;
 }
 
 EC_VOID SocketManager::Start()
@@ -69,6 +75,7 @@ EC_VOID SocketManager::Start()
     m_pListenSocket->BindAddress(&address);
     m_pListenSocket->Listen(MAX_CON_NUBMBER);
 
+    m_pConnectionManager->Start();
     m_pSocketManagerThread->Start();
 }
 
@@ -77,11 +84,14 @@ EC_VOID SocketManager::Stop()
     m_isRunning = EC_FALSE;
     m_pListenSocket->Close();
     m_pSocketManagerThread->WaitStop();
+    m_pConnectionManager->Stop();
 }
 
 void* SocketManager::SocketManagerProc(void* pArgv)
 {
     SocketManager *pSktMgr = (SocketManager*)pArgv;
+    ConnectionManager *pConnMgr = pSktMgr->m_pConnectionManager;
+
     while (EC_TRUE)
     {
         fd_set fdSet;
@@ -102,10 +112,18 @@ void* SocketManager::SocketManagerProc(void* pArgv)
             int nRet = select(nMaxFd, &fdSet, EC_NULL, EC_NULL, &timeout);
             if (nRet > 0)
             {
-                ECTCPSocket connectSocket = pListenSocket->Accept(&clientAddress);
+                ECTCPSocket socket = pListenSocket->Accept(&clientAddress);
+                if (socket.GetSocket() > 0)
                 {
-                    secLogI("New connection comes, addr [%s:%d]", clientAddress.strIP.ToCStr(), clientAddress.nPort);
-                    connectSocket.Close();
+                    secLogI("New client comes, Create new Connection");
+                    Connection* pConnection = new Connection(&socket, &clientAddress);
+                    nRet = pConnMgr->AddConnection(pConnection);
+                    if (nRet != 0)
+                    {
+                        secLogI("ConnectionManager is full, drop this connection.");
+                        pConnection->Close();
+                        delete pConnection;
+                    }
                 }
             }
             else if (nRet == 0)

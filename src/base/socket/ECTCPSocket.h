@@ -37,7 +37,7 @@ class ECTCPSocket : public ECSocket
 {
 public:
     ECTCPSocket();
-    ECTCPSocket(EC_INT socket);
+    ECTCPSocket(EC_SOCKET socket);
     ~ECTCPSocket();
 
     EC_INT Send(void* pData, int nDataLen);

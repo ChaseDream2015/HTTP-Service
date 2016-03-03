@@ -28,13 +28,59 @@
 * --------------------------------------------------------------------
 */
 
+#include "ECLog.h"
 #include "ConnectionManager.h"
 
 
-ConnectionManager::ConnectionManager()
+ConnectionManager::ConnectionManager(EC_U32 nCapability)
+:m_nCapability(nCapability)
 {
+    m_pConnectionHandleWorker = 
+        new ECTaskWorker(m_nCapability, "ConnectionManager");
 }
 
 ConnectionManager::~ConnectionManager()
 {
+    if (m_pConnectionHandleWorker)
+    {
+        delete m_pConnectionHandleWorker;
+    }
+}
+
+EC_VOID ConnectionManager::Start()
+{
+    m_pConnectionHandleWorker->Run();
+}
+
+EC_VOID ConnectionManager::Stop()
+{
+    m_pConnectionHandleWorker->Stop();
+}
+
+EC_U32 ConnectionManager::AddConnection(Connection* pConnection)
+{
+    return m_pConnectionHandleWorker->AddTask(
+                                HandleConnectionEntry, 
+                                pConnection);
+}
+
+void* ConnectionManager::HandleConnectionEntry(void* pArgv)
+{
+    /* Check connection security*/
+    /* Create HTTP Transaction */
+    /* Send HTTP Transaction to Manager*/
+    Connection *pConnection = (Connection*)pArgv;
+    ECSocket *pSocket = pConnection->GetTCPSocket();
+    ECSocketAddress *pClientAddr = pConnection->GetClientAddress();
+
+    EC_U32 nPort = pClientAddr->nPort;
+    ECString strIPAddr = pClientAddr->strIP.ToCStr();
+    EC_SOCKET nSocket = pSocket->GetSocket();
+
+    pConnection->Close();
+    delete pConnection;
+
+    secLogI("New connection comes, [%s:%d socket_fd=%d]", strIPAddr.ToCStr(), nPort, nSocket);
+
+    return EC_NULL;
 }

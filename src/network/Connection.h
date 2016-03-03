@@ -36,10 +36,17 @@
 class Connection
 {
 public:
-    Connection();
+    Connection(ECTCPSocket *pSocket,
+               ECSocketAddress *pClientAddr);
     ~Connection();
-private:
+    EC_VOID Close();
     EC_BOOL CheckSecurity();
+    ECTCPSocket* GetTCPSocket() const;
+    ECSocketAddress* GetClientAddress() const;
+
+private:
+    ECTCPSocket* m_pSocket;
+    ECSocketAddress *m_pClientAddr;
 };
 
 #endif /* CONNECTION_H */

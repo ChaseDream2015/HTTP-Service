@@ -36,6 +36,7 @@
 #include "ECThread.h"
 #include "Connection.h"
 #include "ECTCPSocket.h"
+#include "ConnectionManager.h"
 
 
 class SocketManager
@@ -53,6 +54,7 @@ private:
     EC_BOOL m_isRunning;
     ECTCPSocket *m_pListenSocket;
     ECThread *m_pSocketManagerThread;
+    ConnectionManager *m_pConnectionManager;
 };
 
 #endif /* SOCKET_MANAGER_H */

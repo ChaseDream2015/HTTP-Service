@@ -52,7 +52,7 @@ ECTCPSocket::ECTCPSocket()
     m_socket = socket(AF_INET, SOCK_STREAM, 0);
 }
 
-ECTCPSocket::ECTCPSocket(EC_INT socket)
+ECTCPSocket::ECTCPSocket(EC_SOCKET socket)
 :ECSocket(socket)
 {
 }

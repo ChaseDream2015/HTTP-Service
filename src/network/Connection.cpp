@@ -31,15 +31,37 @@
 #include "Connection.h"
 
 
-Connection::Connection()
+Connection::Connection(ECTCPSocket *pSocket,
+                       ECSocketAddress *pClientAddr)
 {
+    m_pClientAddr = new ECSocketAddress();
+    m_pClientAddr->nPort = pClientAddr->nPort;
+    m_pClientAddr->strIP = pClientAddr->strIP;
+    m_pSocket = new ECTCPSocket(pSocket->GetSocket());
 }
 
 Connection::~Connection()
 {
+    if (m_pSocket) delete m_pSocket;
+    if (m_pClientAddr) delete m_pClientAddr;
+}
+
+EC_VOID Connection::Close()
+{
+    if (m_pSocket) m_pSocket->Close();
 }
 
 EC_BOOL Connection::CheckSecurity()
 {
-    return EC_FALSE;
+    return EC_TRUE;
+}
+
+ECTCPSocket* Connection::GetTCPSocket() const
+{
+    return m_pSocket;
+}
+
+ECSocketAddress* Connection::GetClientAddress() const
+{
+    return m_pClientAddr;
 }

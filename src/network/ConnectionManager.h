@@ -31,13 +31,26 @@
 #ifndef CONNECTION_MANAGER_H
 #define CONNECTION_MANAGER_H
 
+#include "ECType.h"
 #include "ECSocket.h"
+#include "Connection.h"
+#include "ECTaskWorker.h"
 
 class ConnectionManager
 {
 public:
-    ConnectionManager();
+    ConnectionManager(EC_U32 nCapability = EC_U16_MAX);
     ~ConnectionManager();
+    EC_VOID Start();
+    EC_VOID Stop();
+    EC_U32 AddConnection(Connection* pConnection);
+
+private:
+    static void* HandleConnectionEntry(void* pArgv);
+
+private:
+    EC_U32 m_nCapability;
+    ECTaskWorker* m_pConnectionHandleWorker;
 };
 
 #endif /* CONNECTION_MANAGER_H */

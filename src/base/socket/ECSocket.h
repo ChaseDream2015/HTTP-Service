@@ -35,10 +35,12 @@
 
 #ifdef EC_OS_Win32
 #include <Winsock2.h>
+typedef SOCKET EC_SOCKET;
 #elif defined EC_OS_Linux
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+typedef int EC_SOCKET;
 #elif defined EC_OS_MacOS
 /* TODO */
 #elif defined EC_OS_iOS
@@ -63,26 +65,16 @@ typedef struct
 class ECSocket
 {
 public:
-    ECSocket(EC_INT socket);
+    ECSocket(EC_SOCKET socket);
     virtual ~ECSocket();
     virtual EC_VOID Close();
-    virtual EC_INT GetSocket();
+    virtual EC_SOCKET GetSocket();
     virtual EC_BOOL IsSet(fd_set *pFDSet);
     virtual EC_INT BindAddress(ECSocketAddress *pAddress);
     virtual EC_INT SetOptions(int nLevel, int nOptName, const char* pOptVal, int nOptLen);
 
 protected:
-#ifdef EC_OS_Win32
-    SOCKET m_socket;
-#elif defined EC_OS_Linux
-    int m_socket;
-#elif defined EC_OS_MacOS
-    /* TODO */
-#elif defined EC_OS_iOS
-    /* TODO */
-#elif defined EC_OS_Android
-    /* TODO */
-#endif
+    EC_SOCKET m_socket;
 };
 
 #endif /* EC_SOCKET_H */

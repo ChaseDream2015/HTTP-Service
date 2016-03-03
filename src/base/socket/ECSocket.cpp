@@ -45,7 +45,7 @@
 /* TODO */
 #endif
 
-ECSocket::ECSocket(EC_INT socket)
+ECSocket::ECSocket(EC_SOCKET socket)
 {
     m_socket = socket;
 }
@@ -69,7 +69,7 @@ EC_VOID ECSocket::Close()
 #endif
 }
 
-EC_INT ECSocket::GetSocket()
+EC_SOCKET ECSocket::GetSocket()
 {
     return m_socket;
 }
