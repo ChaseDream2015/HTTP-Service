@@ -102,7 +102,11 @@
     <ClCompile Include="..\..\src\base\thread\msg-worker\ECMsgWorker.cpp" />
     <ClCompile Include="..\..\src\base\thread\task-worker\ECTaskWorker.cpp" />
     <ClCompile Include="..\..\src\base\thread\thread-worker\ECThreadWorker.cpp" />
-    <ClCompile Include="..\..\src\http-transaction\HTTPRequestHeader.cpp" />
+    <ClCompile Include="..\..\src\http-transaction\HTTPHeaderSection.cpp" />
+    <ClCompile Include="..\..\src\http-transaction\HTTPRequest.cpp" />
+    <ClCompile Include="..\..\src\http-transaction\HTTPRequestBody.cpp" />
+    <ClCompile Include="..\..\src\http-transaction\HTTPResponse.cpp" />
+    <ClCompile Include="..\..\src\http-transaction\HTTPResponseBody.cpp" />
     <ClCompile Include="..\..\src\http-transaction\HTTPTransaction.cpp" />
     <ClCompile Include="..\..\src\http-transaction\HTTPTransactionManager.cpp" />
     <ClCompile Include="..\..\src\network\Config.cpp" />
@@ -149,7 +153,11 @@
     <ClInclude Include="..\..\src\base\thread\task-worker\ECTaskWorker.h" />
     <ClInclude Include="..\..\src\base\thread\thread-worker\ECThreadWorker.h" />
     <ClInclude Include="..\..\src\http-transaction\HTTPDefine.h" />
-    <ClInclude Include="..\..\src\http-transaction\HTTPRequestHeader.h" />
+    <ClInclude Include="..\..\src\http-transaction\HTTPHeaderSection.h" />
+    <ClInclude Include="..\..\src\http-transaction\HTTPRequest.h" />
+    <ClInclude Include="..\..\src\http-transaction\HTTPRequestBody.h" />
+    <ClInclude Include="..\..\src\http-transaction\HTTPResponse.h" />
+    <ClInclude Include="..\..\src\http-transaction\HTTPResponseBody.h" />
     <ClInclude Include="..\..\src\http-transaction\HTTPTransaction.h" />
     <ClInclude Include="..\..\src\http-transaction\HTTPTransactionManager.h" />
     <ClInclude Include="..\..\src\network\Config.h" />

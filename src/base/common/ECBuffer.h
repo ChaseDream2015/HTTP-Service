@@ -37,8 +37,11 @@ public:
     ECBuffer(EC_PTR pData, EC_U32 nSize);
     virtual ~ECBuffer();
     virtual EC_VOID Clear();
+    virtual EC_U32 GetSize() const;
+    virtual const EC_PTR GetData() const;
     virtual EC_U32 Read(EC_PTR pBuf, EC_U32 nBufMaxSize);
     virtual EC_U32 Write(EC_PTR pData, EC_U32 nDataSize);
+    virtual EC_U32 ReSetBuffer(EC_PTR pData, EC_U32 nSize);
 
 protected:
     EC_PTR m_pBuffer;

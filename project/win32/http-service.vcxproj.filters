@@ -123,11 +123,23 @@
     <ClCompile Include="..\..\src\http-transaction\HTTPTransactionManager.cpp">
       <Filter>http-transaction</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\http-transaction\HTTPRequestHeader.cpp">
-      <Filter>http-transaction</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\base\common\ECBuffer.cpp">
       <Filter>base\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\http-transaction\HTTPRequest.cpp">
+      <Filter>http-transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\http-transaction\HTTPRequestBody.cpp">
+      <Filter>http-transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\http-transaction\HTTPResponse.cpp">
+      <Filter>http-transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\http-transaction\HTTPResponseBody.cpp">
+      <Filter>http-transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\http-transaction\HTTPHeaderSection.cpp">
+      <Filter>http-transaction</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,11 +269,23 @@
     <ClInclude Include="..\..\src\http-transaction\HTTPDefine.h">
       <Filter>http-transaction</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\http-transaction\HTTPRequestHeader.h">
-      <Filter>http-transaction</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\base\common\ECBuffer.h">
       <Filter>base\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\http-transaction\HTTPRequest.h">
+      <Filter>http-transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\http-transaction\HTTPRequestBody.h">
+      <Filter>http-transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\http-transaction\HTTPResponse.h">
+      <Filter>http-transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\http-transaction\HTTPResponseBody.h">
+      <Filter>http-transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\http-transaction\HTTPHeaderSection.h">
+      <Filter>http-transaction</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

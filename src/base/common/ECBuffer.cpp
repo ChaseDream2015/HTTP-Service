@@ -28,6 +28,7 @@
 * ------------------------------------------------------------------------
 */
 
+#include "ECError.h"
 #include "ECMemOP.h"
 #include "ECBuffer.h"
 
@@ -59,10 +60,20 @@ EC_VOID ECBuffer::Clear()
     m_pBuffer = EC_NULL;
 }
 
+EC_U32 ECBuffer::GetSize() const
+{
+    return m_nBufferSize;
+}
+
+const EC_PTR ECBuffer::GetData() const
+{
+    return m_pBuffer;
+}
+
 EC_U32 ECBuffer::Read(EC_PTR pBuf, EC_U32 nBufMaxSize)
 {
     EC_U32 nRet = 0;
-    if (pBuf && m_pBuffer)
+    if (m_pBuffer && pBuf && (nBufMaxSize > 0))
     {
         if (m_nBufferSize > nBufMaxSize)
         {
@@ -75,10 +86,60 @@ EC_U32 ECBuffer::Read(EC_PTR pBuf, EC_U32 nBufMaxSize)
             ecMemCopy(pBuf, m_pBuffer, m_nBufferSize);
         }
 
+        EC_U32 nLeftDataSize = m_nBufferSize - nRet;
+        if (nLeftDataSize > 0)
+        {
+            EC_PTR pNewBuf = ecMemAlloc(nLeftDataSize);
+            EC_PU8 pLeftData = (EC_PU8)m_pBuffer + nRet;
+            ecMemCopy(pNewBuf, pLeftData, nLeftDataSize);
+
+            delete m_pBuffer;
+            m_pBuffer = pNewBuf;
+            m_nBufferSize = nLeftDataSize;
+        }
+        else
+        {
+            m_nBufferSize = 0;
+            m_pBuffer = EC_NULL;
+        }
     }
     return nRet;
 }
 
 EC_U32 ECBuffer::Write(EC_PTR pData, EC_U32 nDataSize)
 {
+    EC_U32 nRet = 0;
+    if (pData && (nDataSize > 0))
+    {
+        if (m_pBuffer && (m_nBufferSize > 0))
+        {
+            EC_U32 nNewSize = m_nBufferSize + nDataSize;
+            EC_PTR pNewBuffer = ecMemAlloc(nNewSize);
+            ecMemCopy(pNewBuffer, m_pBuffer, m_nBufferSize);
+            ecMemCopy((EC_PU8)pNewBuffer + m_nBufferSize, pData, nDataSize);
+            delete m_pBuffer;
+            m_pBuffer = pNewBuffer;
+            m_nBufferSize = nNewSize;
+        }
+        else
+        {
+            m_nBufferSize = nDataSize;
+            m_pBuffer = ecMemAlloc(m_nBufferSize);
+            ecMemCopy(m_pBuffer, pData, nDataSize);
+        }
+        nRet = nDataSize;
+    }
+    return nRet;
+}
+
+EC_U32 ECBuffer::ReSetBuffer(EC_PTR pData, EC_U32 nSize)
+{
+    if (m_pBuffer)
+    {
+        delete m_pBuffer;
+    }
+    m_pBuffer = pData;
+    m_nBufferSize = nSize;
+
+    return EC_Err_None;
 }

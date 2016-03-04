@@ -147,6 +147,7 @@ typedef struct
 {
     EC_PCHAR pName;
     EC_PCHAR pValue;
+    EC_PCHAR pLineSegment;
 } HTTP_HeaderSection;
 
 #endif /* HTTP_DEFINE_H */

@@ -40,6 +40,8 @@ EC_VOID ecMemSet(EC_PTR pMem, EC_S32 val, EC_U32 uSize);
 EC_VOID ecMemCopy(EC_PTR pDest, EC_PTR pSrc, EC_U32 uSize);
 EC_VOID ecMemMove(EC_PTR pDest, EC_PTR pSrc, EC_U32 uSize);
 EC_S32 ecMemCompare(EC_PTR pBuf1, EC_PTR pBuf2, EC_U32 uSize);
+EC_S32 ecFindByteFromMem(EC_CHAR cFindByte, EC_PTR pFrom, EC_U32 nFromSize);
+EC_S32 ecFindMemFromMem(EC_PTR pFind, EC_U32 nFindSize, EC_PTR pFrom, EC_U32 nFromSize);
 
 #ifdef __cplusplus
 }

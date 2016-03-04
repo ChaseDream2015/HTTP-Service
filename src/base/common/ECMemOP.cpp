@@ -62,3 +62,38 @@ EC_VOID ecMemMove(EC_PTR pDest, EC_PTR pSrc, EC_U32 uSize)
 {
     memmove (pDest, pSrc, uSize);
 }
+
+EC_S32 ecFindByteFromMem(EC_CHAR cFindByte, EC_PTR pFrom, EC_U32 nFromSize)
+{
+    EC_S32 nPos = -1;
+    if (pFrom && (nFromSize > 0))
+    {
+        for (EC_U32 i = 0; i < nFromSize; i++)
+        {
+            if (cFindByte == ((EC_PCHAR)pFrom)[i]) return i;
+        }
+    }
+    return nPos;
+}
+
+EC_S32 ecFindMemFromMem(EC_PTR pFind, EC_U32 nFindSize, EC_PTR pFrom, EC_U32 nFromSize)
+{
+    EC_INT nPos = -1;
+    if (pFind && pFrom && (nFindSize <= nFromSize))
+    {
+        EC_U32 nCompareLength = nFromSize - nFindSize;
+        for (EC_U32 i = 0; i < nCompareLength; i++)
+        {
+            EC_U32 j = 0;
+            EC_PCHAR pCompare = (EC_PCHAR)pFrom + i;
+            for (j = 0; j < nFindSize; i++)
+            {
+                EC_CHAR cFrom = pCompare[i];
+                EC_CHAR cFind = ((EC_PCHAR)pFind)[i];
+                if (cFind != cFrom) break;
+            }
+            if (j == nFindSize) return i;
+        }
+    }
+    return nPos;
+}
