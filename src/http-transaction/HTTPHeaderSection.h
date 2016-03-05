@@ -38,7 +38,6 @@
 class HTTPHeaderSection
 {
 public:
-    HTTPHeaderSection();
     HTTPHeaderSection(EC_PCHAR pSecBuf, EC_U32 nBufSize);
     ~HTTPHeaderSection();
     ECString GetName() const;

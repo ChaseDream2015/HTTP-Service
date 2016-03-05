@@ -33,19 +33,22 @@
 #include "HTTPHeaderSection.h"
 
 
-HTTPHeaderSection::HTTPHeaderSection()
+HTTPHeaderSection::HTTPHeaderSection(EC_PCHAR pSecBuf, EC_U32 nBufSize)
 :m_strName(EC_NULL)
 ,m_strValue(EC_NULL)
 {
-}
-
-HTTPHeaderSection::HTTPHeaderSection(EC_PCHAR pSecBuf, EC_U32 nBufSize)
-{
-    EC_INT nColonPos = ecFindByteFromMem(':', pSecBuf, nBufSize);
-    EC_INT nSegmentPos = ecFindMemFromMem(HTTP_Segment, 2, pSecBuf, nBufSize);
-
-    m_strName = ECString(pSecBuf, nColonPos);
-    m_strValue = ECString(pSecBuf + nColonPos + 1, nSegmentPos - (nColonPos + 1));
+    if (pSecBuf && nBufSize)
+    {
+        EC_INT nColonPos = ecFindByteFromMem(':', pSecBuf, nBufSize);
+        EC_INT nSegmentPos = ecFindMemFromMem(HTTP_Segment, 2, pSecBuf, nBufSize);
+        if ((nColonPos > 0) &&
+            (nSegmentPos > 0) &&
+            (nSegmentPos > nColonPos))
+        {
+            m_strName = ECString(pSecBuf, nColonPos);
+            m_strValue = ECString(pSecBuf + nColonPos + 1, nSegmentPos - (nColonPos + 1));
+        }
+    }
 }
 
 HTTPHeaderSection::~HTTPHeaderSection()

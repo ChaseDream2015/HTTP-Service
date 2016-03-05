@@ -28,6 +28,7 @@
 * --------------------------------------------------------------------
 */
 
+#include "ECMemOP.h"
 #include "ECError.h"
 #include "ECString.h"
 #include "ECStringOP.h"
@@ -74,12 +75,11 @@ ECString::ECString(const EC_PCHAR pStr, EC_U32 nSize)
 :m_pStr(EC_NULL)
 ,m_nSize(nSize)
 {
-    m_pStr = new EC_CHAR[nSize+1];
-    if(m_pStr)
+    if (nSize > 0)
     {
-        m_nSize = nSize;
-        ECStringOP::StrNCopy(m_pStr, pStr, nSize);
-        m_pStr[m_nSize] = 0;
+        m_pStr = new EC_CHAR[nSize + 1];
+        ecMemCopy(m_pStr, pStr, nSize);
+        m_pStr[m_nSize] = '\0';
     }
 }
 
