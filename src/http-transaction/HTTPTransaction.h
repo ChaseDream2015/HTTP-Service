@@ -31,15 +31,17 @@
 #ifndef HTTP_TRANSACTION_H
 #define HTTP_TRANSACTION_H
 
-#include "ECTCPSocket.h"
+#include "Connection.h"
 
 class HTTPTransaction
 {
 public:
-    HTTPTransaction();
+    HTTPTransaction(Connection *pConnection);
     ~HTTPTransaction();
+    EC_VOID Close();
+
+private:
+    Connection *m_pConnection;
 };
 
 #endif /* HTTP_TRANSACTION_H */
-
-

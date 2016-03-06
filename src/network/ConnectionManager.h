@@ -35,11 +35,12 @@
 #include "ECSocket.h"
 #include "Connection.h"
 #include "ECTaskWorker.h"
+#include "HTTPTransactionManager.h"
 
 class ConnectionManager
 {
 public:
-    ConnectionManager(EC_U32 nCapability = EC_U16_MAX);
+    ConnectionManager(HTTPTransactionManager* pTransactionMgr, EC_U32 nCapability = EC_U16_MAX);
     ~ConnectionManager();
     EC_VOID Start();
     EC_VOID Stop();
@@ -51,6 +52,7 @@ private:
 private:
     EC_U32 m_nCapability;
     ECTaskWorker* m_pConnectionHandleWorker;
+    HTTPTransactionManager* m_pTransactionMgr;
 };
 
 #endif /* CONNECTION_MANAGER_H */

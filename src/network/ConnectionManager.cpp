@@ -29,14 +29,21 @@
 */
 
 #include "ECLog.h"
+#include "HTTPTransaction.h"
 #include "ConnectionManager.h"
 
+typedef struct
+{
+    Connection *pConnection;
+    HTTPTransactionManager *pTransMgr;
+} HandleConnectionParam;
 
-ConnectionManager::ConnectionManager(EC_U32 nCapability)
+ConnectionManager::ConnectionManager(HTTPTransactionManager* pTransactionMgr, EC_U32 nCapability)
 :m_nCapability(nCapability)
 {
     m_pConnectionHandleWorker = 
-        new ECTaskWorker(m_nCapability, "ConnectionManager");
+      new ECTaskWorker(m_nCapability, "ConnectionManager");
+    ConnectionManager::m_pTransactionMgr = pTransactionMgr;
 }
 
 ConnectionManager::~ConnectionManager()
@@ -59,28 +66,48 @@ EC_VOID ConnectionManager::Stop()
 
 EC_U32 ConnectionManager::AddConnection(Connection* pConnection)
 {
-    return m_pConnectionHandleWorker->AddTask(
-                                HandleConnectionEntry, 
-                                pConnection);
+    HandleConnectionParam *pParam = new HandleConnectionParam;
+    pParam->pConnection = pConnection;
+    pParam->pTransMgr = m_pTransactionMgr;
+    return m_pConnectionHandleWorker->AddTask(HandleConnectionEntry, pParam);
 }
 
 void* ConnectionManager::HandleConnectionEntry(void* pArgv)
 {
-    /* Check connection security*/
-    /* Create HTTP Transaction */
-    /* Send HTTP Transaction to Manager*/
-    Connection *pConnection = (Connection*)pArgv;
+    HandleConnectionParam *pParam = (HandleConnectionParam*)pArgv;
+
+    Connection *pConnection = pParam->pConnection;
+    HTTPTransactionManager *pTransMgr = pParam->pTransMgr;
+
     ECSocket *pSocket = pConnection->GetTCPSocket();
     ECSocketAddress *pClientAddr = pConnection->GetClientAddress();
-
     EC_U32 nPort = pClientAddr->nPort;
     ECString strIPAddr = pClientAddr->strIP.ToCStr();
-    EC_SOCKET nSocket = pSocket->GetSocket();
 
-    pConnection->Close();
-    delete pConnection;
+    if (pConnection->CheckSecurity())
+    {
+        EC_SOCKET nSocketFD = pSocket->GetSocket();
+        HTTPTransaction *pTransaction = new HTTPTransaction(pConnection);
+        EC_U32 nRet = pTransMgr->AddTransaction(pTransaction);
+        if (nRet != EC_Err_None)
+        {
+            pTransaction->Close();
+            delete pTransaction;
+            secLogI("New connection [%s:%d socket_fd=%d] comes, but TransactionMgr is full, drop it!!!", 
+                                     strIPAddr.ToCStr(), nPort, nSocketFD);
+        }
+        else
+        {
+            secLogI("New connection [%s:%d socket_fd=%d] comes...", strIPAddr.ToCStr(), nPort, nSocketFD);
+        }
+    }
+    else
+    {
+        pConnection->Close();
+        delete pConnection;
+        secLogE("Dangers connection[%s:%d] comes, reject it!!!", strIPAddr.ToCStr(), nPort);
+    }
 
-    secLogI("New connection comes, [%s:%d socket_fd=%d]", strIPAddr.ToCStr(), nPort, nSocket);
-
+    delete pParam;
     return EC_NULL;
 }

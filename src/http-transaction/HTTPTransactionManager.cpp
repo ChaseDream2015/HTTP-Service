@@ -38,3 +38,9 @@ HTTPTransactionManager::HTTPTransactionManager()
 HTTPTransactionManager::~HTTPTransactionManager()
 {
 }
+
+EC_U32 HTTPTransactionManager::AddTransaction(HTTPTransaction *pTransaction)
+{
+    /* TODO: */
+    return 0;
+}

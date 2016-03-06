@@ -31,10 +31,20 @@
 #include "HTTPTransaction.h"
 
 
-HTTPTransaction::HTTPTransaction()
+HTTPTransaction::HTTPTransaction(Connection *pConnection)
+:m_pConnection(pConnection)
 {
 }
 
 HTTPTransaction::~HTTPTransaction()
 {
+    if (m_pConnection)
+    {
+        delete m_pConnection;
+    }
+}
+
+EC_VOID HTTPTransaction::Close()
+{
+    m_pConnection->Close();
 }
