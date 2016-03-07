@@ -29,15 +29,11 @@
 */
 
 #include "ECLog.h"
+#include "Config.h"
 #include "ECError.h"
 #include "ECOSUtil.h"
 #include "Connection.h"
 #include "SocketManager.h"
-
-#define LISTEN_IP   "0.0.0.0"
-#define LISTEN_PORT      8259
-#define MAX_CON_NUBMBER  4096
-#define MAX_WAIT_CON_TIME  10
 
 
 SocketManager::SocketManager()

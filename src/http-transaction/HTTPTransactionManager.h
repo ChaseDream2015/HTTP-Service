@@ -42,5 +42,3 @@ public:
 };
 
 #endif /* HTTP_TRANSACTION_MANAGER_H */
-
-

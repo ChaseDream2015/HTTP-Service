@@ -48,3 +48,26 @@ EC_VOID HTTPTransaction::Close()
 {
     m_pConnection->Close();
 }
+
+EC_BOOL HTTPTransaction::IsFinished()
+{
+    return EC_FALSE;
+}
+
+EC_SOCKET HTTPTransaction::GetSocketFD()
+{
+    EC_SOCKET nRetSocket = -1;
+    ECSocket *pSocket = EC_NULL;
+    if (m_pConnection)
+    {
+        pSocket = m_pConnection->GetTCPSocket();
+        if (pSocket)
+            nRetSocket = pSocket->GetSocket();
+    }
+    return nRetSocket;
+}
+
+EC_VOID HTTPTransaction::ReceivedData(EC_PTR pData, EC_U32 nSize)
+{
+    /* TODO: Parser HTTP Header */
+}

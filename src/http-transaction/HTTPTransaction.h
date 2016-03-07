@@ -32,6 +32,7 @@
 #define HTTP_TRANSACTION_H
 
 #include "Connection.h"
+#include "HTTPRequest.h"
 
 class HTTPTransaction
 {
@@ -39,9 +40,13 @@ public:
     HTTPTransaction(Connection *pConnection);
     ~HTTPTransaction();
     EC_VOID Close();
+    EC_BOOL IsFinished();
+    EC_SOCKET GetSocketFD();
+    EC_VOID ReceivedData(EC_PTR pData, EC_U32 nSize);
 
 private:
     Connection *m_pConnection;
+    HTTPRequest *m_pHTTPRequest;
 };
 
 #endif /* HTTP_TRANSACTION_H */

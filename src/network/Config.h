@@ -31,6 +31,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#define LISTEN_IP   "0.0.0.0"
+#define LISTEN_PORT      8259
+#define MAX_CON_NUBMBER  4096
+#define MAX_WAIT_CON_TIME  10
 
 class Config
 {

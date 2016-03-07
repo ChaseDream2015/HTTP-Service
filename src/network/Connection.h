@@ -50,5 +50,3 @@ private:
 };
 
 #endif /* CONNECTION_H */
-
-
