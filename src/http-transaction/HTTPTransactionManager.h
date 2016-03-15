@@ -39,6 +39,7 @@ public:
     HTTPTransactionManager();
     ~HTTPTransactionManager();
     EC_U32 AddTransaction(HTTPTransaction *pTransaction);
+
 };
 
 #endif /* HTTP_TRANSACTION_MANAGER_H */

@@ -42,7 +42,7 @@
 class SocketManager
 {
 public:
-    SocketManager();
+    SocketManager(ConnectionManager *pConnMgr);
     ~SocketManager();
     EC_VOID Start();
     EC_VOID Stop();

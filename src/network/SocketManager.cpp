@@ -30,17 +30,19 @@
 
 #include "ECLog.h"
 #include "Config.h"
+#include "ECFDSet.h"
 #include "ECError.h"
 #include "ECOSUtil.h"
+#include "ECSocketOP.h"
 #include "Connection.h"
 #include "SocketManager.h"
 
 
-SocketManager::SocketManager()
+SocketManager::SocketManager(ConnectionManager *pConnMgr)
 :m_isRunning(EC_FALSE)
 ,m_pListenSocket(EC_NULL)
+,m_pConnectionManager(pConnMgr)
 {
-    m_pConnectionManager = new ConnectionManager(MAX_CON_NUBMBER);
     m_pSocketManagerThread = new ECThread(SocketManagerProc, this, "SocketManager");
 }
 
@@ -85,27 +87,23 @@ EC_VOID SocketManager::Stop()
 
 void* SocketManager::SocketManagerProc(void* pArgv)
 {
+    ECFDSet fdSet;
     SocketManager *pSktMgr = (SocketManager*)pArgv;
     ConnectionManager *pConnMgr = pSktMgr->m_pConnectionManager;
 
     while (EC_TRUE)
     {
-        fd_set fdSet;
-        struct timeval timeout;
-        timeout.tv_usec = 0;
-        timeout.tv_sec = MAX_WAIT_CON_TIME;
-
         if (pSktMgr->m_isRunning)
         {
             ECSocketAddress clientAddress;
             ECTCPSocket *pListenSocket = pSktMgr->m_pListenSocket;
 
-            FD_ZERO(&fdSet);
-            FD_CLR(pListenSocket->GetSocket(), &fdSet);
-            FD_SET(pListenSocket->GetSocket(), &fdSet);
+            fdSet.Zero();
+            fdSet.ClearFD(pListenSocket->GetSocket());
+            fdSet.SetFD(pListenSocket->GetSocket());
+
             int nMaxFd = pListenSocket->GetSocket() + 1;
-            
-            int nRet = select(nMaxFd, &fdSet, EC_NULL, EC_NULL, &timeout);
+            int nRet = ecSelect(&fdSet, MAX_WAIT_CON_TIME);
             if (nRet > 0)
             {
                 ECTCPSocket socket = pListenSocket->Accept(&clientAddress);

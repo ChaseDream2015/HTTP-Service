@@ -90,6 +90,7 @@
     <ClCompile Include="..\..\src\base\common\ECOSUtil.cpp" />
     <ClCompile Include="..\..\src\base\common\ECString.cpp" />
     <ClCompile Include="..\..\src\base\common\ECStringOP.cpp" />
+    <ClCompile Include="..\..\src\base\socket\ECFDSet.cpp" />
     <ClCompile Include="..\..\src\base\socket\ECSocket.cpp" />
     <ClCompile Include="..\..\src\base\socket\ECTCPSocket.cpp" />
     <ClCompile Include="..\..\src\base\socket\ECUDPSocket.cpp" />
@@ -102,13 +103,9 @@
     <ClCompile Include="..\..\src\base\thread\msg-worker\ECMsgWorker.cpp" />
     <ClCompile Include="..\..\src\base\thread\task-worker\ECTaskWorker.cpp" />
     <ClCompile Include="..\..\src\base\thread\thread-worker\ECThreadWorker.cpp" />
-    <ClCompile Include="..\..\src\http-transaction\HTTPHeaderSection.cpp" />
-    <ClCompile Include="..\..\src\http-transaction\HTTPRequest.cpp" />
-    <ClCompile Include="..\..\src\http-transaction\HTTPRequestBody.cpp" />
-    <ClCompile Include="..\..\src\http-transaction\HTTPResponse.cpp" />
-    <ClCompile Include="..\..\src\http-transaction\HTTPResponseBody.cpp" />
     <ClCompile Include="..\..\src\http-transaction\HTTPTransaction.cpp" />
     <ClCompile Include="..\..\src\http-transaction\HTTPTransactionManager.cpp" />
+    <ClCompile Include="..\..\src\http-transaction\HTTPTransactionProcCarrier.cpp" />
     <ClCompile Include="..\..\src\network\Config.cpp" />
     <ClCompile Include="..\..\src\network\Connection.cpp" />
     <ClCompile Include="..\..\src\network\ConnectionManager.cpp" />
@@ -140,6 +137,7 @@
     <ClInclude Include="..\..\src\base\include\ECRingQueue.h" />
     <ClInclude Include="..\..\src\base\include\ECStack.h" />
     <ClInclude Include="..\..\src\base\include\ECType.h" />
+    <ClInclude Include="..\..\src\base\socket\ECFDSet.h" />
     <ClInclude Include="..\..\src\base\socket\ECSocket.h" />
     <ClInclude Include="..\..\src\base\socket\ECTCPSocket.h" />
     <ClInclude Include="..\..\src\base\socket\ECUDPSocket.h" />
@@ -153,13 +151,9 @@
     <ClInclude Include="..\..\src\base\thread\task-worker\ECTaskWorker.h" />
     <ClInclude Include="..\..\src\base\thread\thread-worker\ECThreadWorker.h" />
     <ClInclude Include="..\..\src\http-transaction\HTTPDefine.h" />
-    <ClInclude Include="..\..\src\http-transaction\HTTPHeaderSection.h" />
-    <ClInclude Include="..\..\src\http-transaction\HTTPRequest.h" />
-    <ClInclude Include="..\..\src\http-transaction\HTTPRequestBody.h" />
-    <ClInclude Include="..\..\src\http-transaction\HTTPResponse.h" />
-    <ClInclude Include="..\..\src\http-transaction\HTTPResponseBody.h" />
     <ClInclude Include="..\..\src\http-transaction\HTTPTransaction.h" />
     <ClInclude Include="..\..\src\http-transaction\HTTPTransactionManager.h" />
+    <ClInclude Include="..\..\src\http-transaction\HTTPTransactionProcCarrier.h" />
     <ClInclude Include="..\..\src\network\Config.h" />
     <ClInclude Include="..\..\src\network\Connection.h" />
     <ClInclude Include="..\..\src\network\ConnectionManager.h" />

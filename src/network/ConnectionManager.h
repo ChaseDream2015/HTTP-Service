@@ -45,9 +45,10 @@ public:
     EC_VOID Start();
     EC_VOID Stop();
     EC_U32 AddConnection(Connection* pConnection);
+    EC_BOOL CheckConnectionSecurity(Connection *pConnection);
 
 private:
-    static void* HandleConnectionEntry(void* pArgv);
+    static void* HandleConnectionEntry(void* pUserData, void* pArgv);
 
 private:
     EC_U32 m_nCapability;
@@ -56,5 +57,3 @@ private:
 };
 
 #endif /* CONNECTION_MANAGER_H */
-
-

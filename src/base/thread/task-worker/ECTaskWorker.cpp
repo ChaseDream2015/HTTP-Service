@@ -34,6 +34,12 @@
 #include "ECStringOP.h"
 #include "ECTaskWorker.h"
 
+typedef struct
+{
+    void* pParam;
+    void* pUserData;
+    void*(*TaskHandler)(void* pUdt, void* pParm);
+} ECTask;
 
 ECTaskWorker::ECTaskWorker(
     EC_U32 nCapability,
@@ -108,11 +114,12 @@ void ECTaskWorker::CancelAllTask()
     }
 }
 
-EC_U32 ECTaskWorker::AddTask(void*(*TaskHandler)(void*), void* pParam)
+EC_U32 ECTaskWorker::AddTask(void* pUserData, void*(*TaskHandler)(void*,void*), void* pParam)
 {
     EC_U32 nRet;
     ECTask ecTask;
     ecTask.pParam = pParam;
+    ecTask.pUserData = pUserData;
     ecTask.TaskHandler = TaskHandler;
     ECAutoLock AutoLock(&m_mtxTaskQueue);
     {
@@ -160,7 +167,7 @@ void* ECTaskWorker::TaskThreadEntry(void* pArg)
                 if( (EC_Err_None == nRet) &&
                     (ecTask.TaskHandler != EC_NULL) )
                 {
-                    ecTask.TaskHandler(ecTask.pParam);
+                    ecTask.TaskHandler(ecTask.pUserData, ecTask.pParam);
                 }
                 pTaskWorker->m_semWorkerRun.SemWait();
             }

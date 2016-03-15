@@ -60,11 +60,7 @@ typedef enum
 #define MAX_EXIT_WAIT 500
 #define DFT_TASK_SIZE 1024
 
-typedef struct
-{
-    void* pParam;
-    void*(*TaskHandler)(void*);
-} ECTask;
+struct ECTask;
 
 class ECTaskWorker
 {
@@ -79,7 +75,7 @@ public:
     EC_VOID Pause();
     EC_VOID Stop();
     void CancelAllTask();
-    EC_U32 AddTask(void*(*TaskHandler)(void*), void* pParam);
+    EC_U32 AddTask(void* pUserData, void*(*TaskHandler)(void*,void*), void* pParam);
 
 private:
     void WaitTaskProcExit();

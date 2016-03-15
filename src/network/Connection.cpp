@@ -51,11 +51,6 @@ EC_VOID Connection::Close()
     if (m_pSocket) m_pSocket->Close();
 }
 
-EC_BOOL Connection::CheckSecurity()
-{
-    return EC_TRUE;
-}
-
 ECTCPSocket* Connection::GetTCPSocket() const
 {
     return m_pSocket;

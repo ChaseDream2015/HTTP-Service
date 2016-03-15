@@ -20,7 +20,7 @@
 
 * ---------------------------------------------------------------------
 * HTTPTransaction.cpp
-* This file for Connection interface & encapsulation implementation.
+* This file for HTTPTransaction interface & encapsulation implementation.
 *
 * Eamil:   epengao@126.com
 * Author:  Peter Gao

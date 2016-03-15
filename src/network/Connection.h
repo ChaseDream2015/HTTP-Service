@@ -40,7 +40,6 @@ public:
                ECSocketAddress *pClientAddr);
     ~Connection();
     EC_VOID Close();
-    EC_BOOL CheckSecurity();
     ECTCPSocket* GetTCPSocket() const;
     ECSocketAddress* GetClientAddress() const;
 

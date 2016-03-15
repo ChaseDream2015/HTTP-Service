@@ -46,7 +46,6 @@ public:
 
 private:
     Connection *m_pConnection;
-    HTTPRequest *m_pHTTPRequest;
 };
 
 #endif /* HTTP_TRANSACTION_H */
