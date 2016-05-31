@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * define a static length Array which can store any type of data.
 *
 * Eamil:  epengao@126.com
-* Author: Peter Gao
+* Author: Gao Peng
 * Version: First initinal version.
 * --------------------------------------------------------------------
 */
@@ -35,13 +35,13 @@
 #include "ECType.h"
 #include "ECCompare.h"
 
-#define ECARRAY_DEFAULT_MAX_SIZE    512
+#define ECARRAY_DEFAULT_SIZE    512
 
 template<typename T>
 class ECArray
 {
 public:
-    ECArray(EC_U32 maxSize = ECARRAY_DEFAULT_MAX_SIZE,
+    ECArray(EC_U32 maxSize = ECARRAY_DEFAULT_SIZE,
             ECCompare<T> *pCompare = EC_NULL);
     ~ECArray();
     EC_U32 InsertToHead(const T data);
@@ -51,13 +51,14 @@ public:
     EC_U32 DeleteFromHead();
     EC_U32 DeleteFromTail();
     EC_U32 DeleteAtIndex(EC_U32 index);
+    EC_U32 DeleteAllIndex();
     EC_U32 GetItemFromHead(T* pData)               const;
     EC_U32 GetItemFromTail(T* pData)               const;
     EC_U32 GetItemAtIndex(T* pData, EC_U32 index)  const;
     EC_U32 GetItemsCount() const {return m_nItemCount;}
     EC_U32 GetMaxSize() const {return m_nMaxSize;}
     EC_VOID SetCompare(ECCompare<T> *pCompare) {m_pCompare = pCompare;}
-    EC_U32 Sort(EC_BOOL bSortType = EC_TRUE);
+    EC_U32 Sort(EC_BOOL bAscending = EC_TRUE);
 
 private:
     T*              m_pDatas;
@@ -67,8 +68,7 @@ private:
 };
 
 template<typename T>
-ECArray<T>::ECArray(EC_U32 maxSize,
-                    ECCompare<T> *pCompare)
+ECArray<T>::ECArray(EC_U32 maxSize, ECCompare<T> *pCompare)
 :m_nItemCount(0)
 ,m_nMaxSize(maxSize)
 ,m_pCompare(pCompare)
@@ -93,7 +93,7 @@ EC_U32 ECArray<T>::InsertToHead(const T data)
 
     m_pDatas[0] = data;
     m_nItemCount++;
-    
+
     return EC_Err_None;
 }
 
@@ -102,10 +102,10 @@ EC_U32 ECArray<T>::InsertToTail(const T data)
 {
     if(m_nItemCount >= m_nMaxSize)
         return EC_Err_ContainerFull;
-    
+
     m_pDatas[m_nItemCount] = data;
     m_nItemCount++;
-    
+
     return EC_Err_None;
 }
 
@@ -134,6 +134,9 @@ EC_U32 ECArray<T>::InsertAtIndex(const T data, EC_U32 index)
 template<typename T>
 EC_U32 ECArray<T>::UpdateAtIndex(const T data, EC_U32 index)
 {
+    if(m_nItemCount <= 0)
+        return EC_Err_ContainerEmpty;
+
     EC_U32 nRet = EC_Err_None;
     if ((index>=0) && (index<m_nItemCount))
         m_pDatas[index] = data;
@@ -158,6 +161,9 @@ EC_U32 ECArray<T>::DeleteFromTail()
 template<typename T>
 EC_U32 ECArray<T>::DeleteAtIndex(EC_U32 index)
 {
+    if(m_nItemCount <= 0)
+        return EC_Err_ContainerEmpty;
+
     EC_U32 nRet = EC_Err_None;
     if((index>=0) && (index<m_nItemCount))
     {
@@ -169,6 +175,13 @@ EC_U32 ECArray<T>::DeleteAtIndex(EC_U32 index)
         nRet = EC_Err_BadParam;
 
     return nRet;
+}
+
+template<typename T>
+EC_U32 ECArray<T>::DeleteAllIndex()
+{
+    m_nItemCount = 0;
+    return EC_Err_None;
 }
 
 template<typename T>
@@ -186,17 +199,20 @@ EC_U32 ECArray<T>::GetItemFromTail(T* pData) const
 template<typename T>
 EC_U32 ECArray<T>::GetItemAtIndex(T* pData, EC_U32 index) const
 {
+    if(m_nItemCount <= 0)
+        return EC_Err_ContainerEmpty;
+
     EC_U32 nRet = EC_Err_None;
-    if((index>=0) && (index<m_nItemCount))
+    if((index>=0) && (index<m_nItemCount) && (pData!=EC_NULL))
         *pData = m_pDatas[index];
     else
         nRet = EC_Err_BadParam;
-    
+
     return nRet;
 }
 
 template<typename T>
-EC_U32 ECArray<T>::Sort(EC_BOOL bSortType /* EC_TRUE*/)
+EC_U32 ECArray<T>::Sort(EC_BOOL bAscending /* EC_TRUE*/)
 {
     if(m_pCompare)
     {

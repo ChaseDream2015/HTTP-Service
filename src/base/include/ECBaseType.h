@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -24,7 +24,7 @@
 * This file for redefing all the C++ basic types.
 *
 * Eamil:  epengao@126.com
-* Author: Peter Gao
+* Author: Gao Peng
 * Version: Initial first version.
 * --------------------------------------------------------------------
 */
@@ -32,7 +32,7 @@
 #ifndef EC_BASE_TYPE_H
 #define EC_BASE_TYPE_H
 
-/* Pre Compiling define */
+/* Pre Compiling Define */
 #include "ECPrefDef.h"
 
 #ifdef __cplusplus
@@ -50,7 +50,6 @@ typedef float                 _EC_FLOAT;
 typedef double                _EC_DOUBLE;
 typedef long double           _EC_LONG_DOUBLE;
 typedef wchar_t               _EC_WCHAR;
-typedef const char            _EC_CONST_CHAR;
 /* unsigned type */
 typedef unsigned char         _EC_U8;
 typedef unsigned short        _EC_U16;
@@ -61,6 +60,9 @@ typedef unsigned long long    _EC_U64;
 typedef bool                  _EC_BOOL;
 #define _EC_FALSE             0
 #define _EC_TRUE              (!_EC_FALSE)
+
+/* void */
+#define _EC_VOID              void
 
 /* pointer */
 typedef void*                 _EC_POINTER;

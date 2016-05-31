@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -24,7 +24,7 @@
 * define a Mutable Array which can store any type of data.
 *
 * Eamil:  epengao@126.com
-* Author: Peter Gao
+* Author: Gao Peng
 * Version: First initinal version.
 * --------------------------------------------------------------------
 */
@@ -35,8 +35,6 @@
 #include "ECNode.h"
 #include "ECError.h"
 #include "ECCompare.h"
-
-#define ECARRAY_DEFAULT_MAX_SIZE    512
 
 template<typename T>
 class ECMutableArray
@@ -50,21 +48,24 @@ public:
     EC_U32 DeleteFromHead();
     EC_U32 DeleteFromTail();
     EC_U32 DeleteAtIndex(EC_U32 index);
+    EC_U32 DeleteAllIndex();
     EC_U32 GetItemFromHead(T* pData)               const;
     EC_U32 GetItemFromTail(T* pData)               const;
     EC_U32 GetItemAtIndex(T* pData, EC_U32 index)  const;
     EC_U32 GetItemsCount() const;
     EC_VOID SetCompare(ECCompare<T> *pCompare) {m_pCompare = pCompare;}
-    EC_U32 Sort(EC_BOOL bSortType = EC_TRUE);
+    EC_U32 Sort(EC_BOOL bAscending = EC_TRUE);
 
 private:
+    EC_U32          m_nCount;
     ECNode<T>*      m_pHeader;
     ECCompare<T>*   m_pCompare;
 };
 
 template<typename T>
 ECMutableArray<T>::ECMutableArray(ECCompare<T> *pCompare)
-:m_pHeader(EC_NULL)
+:m_nCount(0)
+,m_pHeader(EC_NULL)
 ,m_pCompare(pCompare)
 {
 }
@@ -88,7 +89,8 @@ EC_U32 ECMutableArray<T>::InsertToHead(const T data)
     ECNode<T>* pNode = new ECNode<T>(data);
     pNode->m_pNext = m_pHeader;
     m_pHeader = pNode;
-    
+    m_nCount ++;
+
     return EC_Err_None;
 }
 
@@ -103,6 +105,7 @@ EC_U32 ECMutableArray<T>::InsertToTail(const T data)
         node = node->m_pNext;
     ECNode<T>* pNode = new ECNode<T>(data);
     node->m_pNext = pNode;
+    m_nCount ++;
 
     return EC_Err_None;
 }
@@ -111,7 +114,7 @@ template<typename T>
 EC_U32 ECMutableArray<T>::InsertAtIndex(const T data, EC_U32 index)
 {
     EC_U32 nRet = EC_Err_None;
-    if( (index>0) && (index<GetItemsCount()) )
+    if( (index>0) && (index<m_nCount) )
     {
         ECNode<T>* node = m_pHeader;
         for(EC_U32 i=0; i<index-1; ++i)
@@ -120,6 +123,7 @@ EC_U32 ECMutableArray<T>::InsertAtIndex(const T data, EC_U32 index)
         }
         ECNode<T>* pNode = new ECNode<T>(data, node->m_pNext);
         node->m_pNext = pNode;
+        m_nCount ++;
     }
     else if(index == 0)
         nRet = InsertToHead(data);
@@ -137,9 +141,10 @@ EC_U32 ECMutableArray<T>::DeleteFromHead()
         ECNode<T>* node = m_pHeader;
         m_pHeader = m_pHeader->m_pNext;
         delete node;
+        m_nCount --;
         return EC_Err_None;
     }
-    
+
     return EC_Err_ContainerEmpty;
 }
 
@@ -148,20 +153,20 @@ EC_U32 ECMutableArray<T>::DeleteFromTail()
 {
     EC_U32 nRet = EC_Err_None;
 
-    EC_U32 nCount = GetItemsCount();
-    if(nCount == 0)
-        nRet = EC_Err_ContainerEmpty;
-    else if(nCount == 1)
-        nRet = DeleteFromHead();
-    if(nCount >= 2)
+    if(m_nCount >= 2)
     {
         ECNode<T>* node = m_pHeader;
         for(EC_U32 i=0; i<nCount-2; ++i)
             node = node->m_pNext;
         delete node->m_pNext;
+        m_nCount --;
         node->m_pNext = EC_NULL;
     }
-    
+    else if(m_nCount == 1)
+        nRet = DeleteFromHead();
+    else
+        nRet = EC_Err_ContainerEmpty;
+
     return nRet;
 }
 
@@ -170,24 +175,36 @@ EC_U32 ECMutableArray<T>::DeleteAtIndex(EC_U32 index)
 {
     EC_U32 nRet = EC_Err_None;
 
-    EC_U32 nCount = GetItemsCount();
-    if( (index>0) && (index<nCount-1) )
+    if( (index>0) && (index<m_nCount-1) )
     {
         ECNode<T>* node = m_pHeader;
         for(EC_U32 i=0; i<index-1; ++i)
             node = node->m_pNext;
         ECNode<T>* deleNode = node->m_pNext;
         node->m_pNext = deleNode->m_pNext;
+        m_nCount --;
         delete deleNode;
     }
     else if(index == 0)
         nRet = DeleteFromHead();
-    else if(index == (nCount-1))
+    else if(index == (m_nCount-1))
         nRet = DeleteFromTail();
     else
         nRet = EC_Err_BadParam;
 
     return nRet;
+}
+
+template<typename T>
+EC_U32 ECMutableArray<T>::DeleteAllIndex()
+{
+    while (m_pHeader != EC_NULL)
+    {
+        DeleteFromHead();
+    }
+    m_nCount = 0;
+
+    return EC_Err_None;
 }
 
 template<typename T>
@@ -199,7 +216,7 @@ EC_U32 ECMutableArray<T>::GetItemFromHead(T* pData) const
 template<typename T>
 EC_U32 ECMutableArray<T>::GetItemFromTail(T* pData) const
 {
-    return GetItemAtIndex(pData, GetItemsCount()-1);
+    return GetItemAtIndex(pData, m_nCount-1);
 }
 
 template<typename T>
@@ -209,8 +226,7 @@ EC_U32 ECMutableArray<T>::GetItemAtIndex(T* pData, EC_U32 index) const
 
     if(pData)
     {
-        EC_U32 nCount = GetItemsCount();
-        if((index>=0) && (index<nCount))
+        if((index>=0) && (index<m_nCount))
         {
             ECNode<T>* node = m_pHeader;
             for(EC_U32 i=0; i<index; ++i)
@@ -227,22 +243,32 @@ EC_U32 ECMutableArray<T>::GetItemAtIndex(T* pData, EC_U32 index) const
 template<typename T>
 EC_U32 ECMutableArray<T>::GetItemsCount() const
 {
-    EC_U32 nCount = 0;
-
-    ECNode<T>* node = m_pHeader;
-    while(node!=EC_NULL)
-    {
-        node = node->m_pNext;
-        nCount++;
-    }
-    
-    return nCount;
+    return m_nCount;
 }
 
 template<typename T>
-EC_U32 ECMutableArray<T>::Sort(EC_BOOL bSortType /* EC_TRUE*/)
+EC_U32 ECMutableArray<T>::Sort(EC_BOOL bAscending /* EC_TRUE*/)
 {
-    /* TODO */
+    if(m_pCompare)
+    {
+        for(EC_U32 i=0; i<m_nItemCount-1; ++i)
+        {
+            for(EC_U32 j=0; j<m_nItemCount-1; ++j)
+            {
+                EC_S32 bCompareResult = m_pCompare->Compare(&m_pDatas[j], &m_pDatas[j+1]);
+                if( (bSortType && (bCompareResult == EC_GREATER))
+                    || (!bSortType && (bCompareResult == EC_LESSTHEN)) )
+                {
+                    T data = m_pDatas[j];
+                    m_pDatas[j] = m_pDatas[j+1];
+                    m_pDatas[j+1] = data;
+                }
+            }
+        }
+        return EC_Err_None;
+    }
+    else
+        return EC_Err_NotImplement;
 }
 
 #endif /* EC_MUTABLE_ARRAY_H */

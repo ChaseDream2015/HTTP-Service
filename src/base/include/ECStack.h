@@ -86,7 +86,7 @@ EC_U32 ECStack<T>::Pop(T *pData)
     }
     else
         nRet = EC_Err_Memory_Overflow;
-    
+
     return nRet;
 }
 
@@ -94,14 +94,14 @@ template<typename T>
 EC_U32 ECStack<T>::Top(T *pData) const
 {
     EC_U32 nRet = EC_Err_None;
-    
+
     if(m_pContainer)
     {
         nRet = m_pContainer->GetItemFromTail(pData);
     }
     else
         nRet = EC_Err_Memory_Overflow;
-    
+
     return nRet;
 }
 
@@ -114,7 +114,7 @@ EC_BOOL ECStack<T>::IsEmpty() const
     {
         bRet = (m_pContainer->GetItemsCount() == 0);
     }
-    
+
     return bRet;
 }
 
@@ -124,7 +124,7 @@ EC_U32 ECStack<T>::Count() const
     EC_U32 count = 0;
     if(m_pContainer)
         count = m_pContainer->GetItemsCount();
-    
+
     return count;
 }
 

@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for define the base error code.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Peng Gao
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -36,9 +36,10 @@ extern "C" {
 #endif
 
 #define    EC_Err_None                   0x00000000
-#define    EC_Err_DataNotExist           0x00000001
+#define    EC_Err_BadParam               0x00000001
 #define    EC_Err_NotImplement           0x00000002
-#define    EC_Err_BadParam               0x00000003
+#define    EC_Err_DataNotExist           0x00000003
+
 #define    EC_Err_DataAlreadyExist       0x00000004
 #define    EC_Err_FileOpenFaild          0x00000005
 #define    EC_Err_OperatorFaild          0x00000006
