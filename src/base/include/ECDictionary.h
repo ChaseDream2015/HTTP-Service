@@ -45,14 +45,15 @@ public:
     ~ECDictionary();
 
 public:
-    EC_U32 AddObject(const KeyT key, const ValT value);
-    EC_U32 DeleteObject(const KeyT key);
-    EC_U32 GetObject(const KeyT key, ValT* value) const;
+    EC_U32 AddItem(const KeyT key, const ValT value);
+    EC_U32 DeleteItem(const KeyT key);
+    EC_U32 GetItem(const KeyT key, ValT* value) const;
     EC_BOOL IsEmpty() const;
-    EC_U32  Count() const;
-    EC_VOID Reset();
+    EC_U32  GetItemsCount() const;
+    EC_VOID DeleteAllItems();
+
 private:
-    EC_U32 FindObjectPos(const KeyT key) const;
+    EC_U32 FindItemPos(const KeyT key) const;
 
 private:
     ECMutableArray<ECPairNode<KeyT,ValT>>*  m_pContainer;
@@ -72,90 +73,69 @@ ECDictionary<KeyT,ValT>::~ECDictionary()
 
 
 template<typename KeyT, typename ValT>
-EC_U32 ECDictionary<KeyT,ValT>::AddObject(const KeyT key, const ValT value)
+EC_U32 ECDictionary<KeyT,ValT>::AddItem(const KeyT key, const ValT value)
 {
-    if(m_pContainer)
-    {
-        return m_pContainer->InsertToTail(ECPairNode<KeyT,ValT>(key,value));
-    }
-    else
-        return EC_Err_Memory_Overflow;
+    return m_pContainer->InsertToTail(ECPairNode<KeyT,ValT>(key,value));
 }
 
 template<typename KeyT, typename ValT>
-EC_U32 ECDictionary<KeyT,ValT>::DeleteObject(const KeyT key)
+EC_U32 ECDictionary<KeyT,ValT>::DeleteItem(const KeyT key)
 {
     EC_U32 nPos = FindObjectPos(key);
-    if(m_pContainer) return m_pContainer->DeleteAtIndex(nPos);
-    else return EC_Err_Memory_Overflow;
+    return m_pContainer->DeleteAtIndex(nPos);
 }
 
 template<typename KeyT, typename ValT>
-EC_U32 ECDictionary<KeyT,ValT>::GetObject(const KeyT key, ValT* pValue) const
+EC_U32 ECDictionary<KeyT,ValT>::GetItem(const KeyT key, ValT* pValue) const
 {
     EC_U32 nPos = FindObjectPos(key);
-    if(m_pContainer)
+
+    ECPairNode<KeyT,ValT> pare;
+    EC_U32 nRet = m_pContainer->GetItemAtIndex(&pare, nPos);
+    if(EC_Err_None == nRet)
     {
-        ECPairNode<KeyT,ValT> pare;
-        EC_U32 nRet = m_pContainer->GetItemAtIndex(&pare, nPos);
-        if(EC_Err_None==nRet)
-        {
-            *pValue = pare.m_sVal;
-            return EC_Err_None;
-        }
-        else return nRet;
+        *pValue = pare.m_sVal;
     }
-    else
-        return EC_Err_Memory_Overflow;
+    return nRet;
 }
 
 template<typename KeyT, typename ValT>
 EC_BOOL ECDictionary<KeyT,ValT>::IsEmpty() const
 {
-    if(m_pContainer)
-    {
-        return (0==m_pContainer->GetItemsCount());
-    }
-    else return EC_TRUE;
+    return (0 == m_pContainer->GetItemsCount());
 }
 
 template<typename KeyT, typename ValT>
-EC_U32 ECDictionary<KeyT,ValT>::Count() const
+EC_U32 ECDictionary<KeyT,ValT>::GetItemsCount() const
 {
-    if(m_pContainer) return m_pContainer->GetItemsCount();
-    else return 0;
+    return m_pContainer->GetItemsCount();
 }
 
 template<typename KeyT, typename ValT>
-EC_VOID ECDictionary<KeyT,ValT>::Reset()
+EC_VOID ECDictionary<KeyT,ValT>::DeleteAllItems()
 {
-    if(m_pContainer)
-    {
-        delete m_pContainer;
-        m_pContainer = new ECMutableArray<ECPairNode<KeyT,ValT>>();
-    }
+    if(m_pContainer) delete m_pContainer;
+    m_pContainer = new ECMutableArray<ECPairNode<KeyT,ValT>>();
 }
 
 /* privare function */
 template<typename KeyT, typename ValT>
-EC_U32 ECDictionary<KeyT,ValT>::FindObjectPos(const KeyT key) const
+EC_U32 ECDictionary<KeyT,ValT>::FindItemPos(const KeyT key) const
 {
     EC_U32 nPos = EC_U32_MAX;
 
-    if(m_pContainer)
+    EC_U32 nCount = m_pContainer->GetItemsCount();
+    ECPairNode<KeyT,ValT> pare;
+    for(EC_U32 i=0; i<nCount; ++i)
     {
-        EC_U32 nCount = m_pContainer->GetItemsCount();
-        ECPairNode<KeyT,ValT> pare;
-        for(EC_U32 i=0; i<nCount; ++i)
+        EC_U32 nRet = m_pContainer->GetItemAtIndex(&pare, i);
+        if((EC_Err_None == nRet) && (key == pare.m_sKey))
         {
-            EC_U32 nRet = m_pContainer->GetItemAtIndex(&pare, i);
-            if((EC_Err_None==nRet) && (key==pare.m_sKey))
-            {
-                nPos = i;
-                break;
-            }
+            nPos = i;
+            break;
         }
     }
+
     return nPos;
 }
 

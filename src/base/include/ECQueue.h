@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -24,7 +24,7 @@
 * define a Queue which can store any type of data.
 *
 * Eamil:  epengao@126.com
-* Author: Peter Gao
+* Author: Gao Peng
 * Version: First initinal version.
 * --------------------------------------------------------------------
 */
@@ -88,7 +88,7 @@ EC_U32 ECQueue<T>::Pop(T *pOutData)
     }
     else
         nRet = EC_Err_Memory_Overflow;
-    
+
     return nRet;
 }
 
@@ -96,14 +96,14 @@ template<typename T>
 EC_U32 ECQueue<T>::Front(T *pOutData) const
 {
     EC_U32 nRet = EC_Err_None;
-    
+
     if(m_pContainer)
     {
         nRet = m_pContainer->GetItemFromHead(pOutData);
     }
     else
         nRet = EC_Err_Memory_Overflow;
-    
+
     return nRet;
 }
 
@@ -111,14 +111,14 @@ template<typename T>
 EC_U32 ECQueue<T>::Back(T *pOutData) const
 {
     EC_U32 nRet = EC_Err_None;
-    
+
     if(m_pContainer)
     {
         nRet = m_pContainer->GetItemFromTail(pOutData);
     }
     else
         nRet = EC_Err_Memory_Overflow;
-    
+
     return nRet;
 }
 
@@ -131,7 +131,7 @@ EC_BOOL ECQueue<T>::IsEmpty() const
     {
         bRet = (m_pContainer->GetItemsCount() == 0);
     }
-    
+
     return bRet;
 }
 
@@ -141,7 +141,7 @@ EC_U32 ECQueue<T>::Count() const
     EC_U32 count = 0;
     if(m_pContainer)
         count = m_pContainer->GetItemsCount();
-    
+
     return count;
 }
 

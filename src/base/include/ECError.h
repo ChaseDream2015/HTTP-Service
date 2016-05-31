@@ -23,7 +23,7 @@
 * This file for define the base error code.
 *
 * Eamil:   epengao@126.com
-* Author:  Peng Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */

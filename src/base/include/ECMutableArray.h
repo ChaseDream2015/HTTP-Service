@@ -251,17 +251,25 @@ EC_U32 ECMutableArray<T>::Sort(EC_BOOL bAscending /* EC_TRUE*/)
 {
     if(m_pCompare)
     {
-        for(EC_U32 i=0; i<m_nItemCount-1; ++i)
+        for(EC_U32 i=0; i<m_nCount-1; ++i)
         {
-            for(EC_U32 j=0; j<m_nItemCount-1; ++j)
+            ECNode<T>* node = m_pHeader;
+            for(EC_U32 j=0; j<m_nCount-1; ++j)
             {
-                EC_S32 bCompareResult = m_pCompare->Compare(&m_pDatas[j], &m_pDatas[j+1]);
-                if( (bSortType && (bCompareResult == EC_GREATER))
-                    || (!bSortType && (bCompareResult == EC_LESSTHEN)) )
+                if(node && node->m_pNext)
                 {
-                    T data = m_pDatas[j];
-                    m_pDatas[j] = m_pDatas[j+1];
-                    m_pDatas[j+1] = data;
+                    T* curr = &(node->m_sData);
+                    T* next = &(node->next->m_sData);
+                    EC_S32 bCompareResult = m_pCompare->Compare(curr, next);
+                    if( (bSortType && (bCompareResult == EC_GREATER))
+                        || (!bSortType && (bCompareResult == EC_LESSTHEN)) )
+                    {
+                        T currData = node->m_sData;
+                        T nextData = next->m_sData;
+                        node->m_sData = nextData;
+                        next->m_sData = currData;
+                    }
+                    node = node->m_pNext;
                 }
             }
         }

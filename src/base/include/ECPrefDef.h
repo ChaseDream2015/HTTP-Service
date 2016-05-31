@@ -23,7 +23,7 @@
 * This file for Whole Software pre compilng define.
 *
 * Eamil:   epengao@126.com
-* Author:  Peng Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */

@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -22,7 +22,7 @@
 * ECNode.h
 * This file for basic struct Node type define.
 * Eamil:  epengao@126.com
-* Author: Peter Gao
+* Author: Gao Peng
 * Version: First initinal version.
 * --------------------------------------------------------------------
 */
