@@ -36,23 +36,42 @@ extern "C" {
 
 #include <stdio.h>
 
+/* Following is the simple output log define */
+#define __EC_LOGI(format, ...)                                  \
+    do                                                          \
+    {                                                           \
+    printf("Info:  " format "\n", ##__VA_ARGS__ );              \
+} while (0)
+
+#define __EC_LOGW(format, ...)                                  \
+    do                                                          \
+    {                                                           \
+    printf("Warring:  " format "\n", ##__VA_ARGS__ );           \
+} while (0)
+
+#define __EC_LOGE(format, ...)                                  \
+    do                                                          \
+    {                                                           \
+    printf("Err:  " format "\n", ##__VA_ARGS__ );               \
+} while (0)
+
 
 /* Following is the detail log output define */
-#define __EC_LOGI(format, ...)                                  \
+#define __EC_DEBUG_LOGI(format, ...)                            \
     do                                                          \
     {                                                           \
         printf("EC_Info: %s %s %d " format "\n",                \
               __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__ );\
     } while (0)
 
-#define __EC_LOGW(format, ...)                                  \
+#define __EC_DEBUG_LOGW(format, ...)                            \
     do                                                          \
     {                                                           \
         printf("EC_Waring: %s %s %d " format "\n",              \
               __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__ );\
     } while (0)
 
-#define __EC_LOGE(format, ...)                                  \
+#define __EC_DEBUG_LOGE(format, ...)                            \
     do                                                          \
     {                                                           \
         printf("EC_Error: %s %s %d " format "\n",               \
@@ -60,38 +79,13 @@ extern "C" {
     } while (0)
 
 
-/* Following is the simple output log define */
-#define __S_EC_LOGI(format, ...)                                \
-    do                                                          \
-    {                                                           \
-    printf("Info:  " format "\n", ##__VA_ARGS__ );              \
-} while (0)
+#define ecLogI          __S_EC_LOGI
+#define ecLogW          __S_EC_LOGW
+#define ecLogE          __S_EC_LOGE
 
-#define __S_EC_LOGW(format, ...)                                \
-    do                                                          \
-    {                                                           \
-    printf("Warring:  " format "\n", ##__VA_ARGS__ );           \
-} while (0)
-
-#define __S_EC_LOGE(format, ...)                                \
-    do                                                          \
-    {                                                           \
-    printf("Err:  " format "\n", ##__VA_ARGS__ );               \
-} while (0)
-
-/* EC used log macro define */
-#define EC_LOGI  __EC_LOGI
-#define EC_LOGW  __EC_LOGW
-#define EC_LOGE  __EC_LOGE
-
-#define ecLogI    EC_LOGI
-#define ecLogW    EC_LOGW
-#define ecLogE    EC_LOGE
-
-#define secLogI   __S_EC_LOGI
-#define secLogW   __S_EC_LOGW
-#define secLogE   __S_EC_LOGE
-
+#define ecDebugLogI     __EC_DEBUG_LOGI
+#define ecDebugLogW     __EC_DEBUG_LOGW
+#define ecDebugLogE     __EC_DEBUG_LOGE
 
 #ifdef __cplusplus
 }

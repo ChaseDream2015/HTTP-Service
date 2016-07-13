@@ -261,8 +261,8 @@ EC_U32 ECMutableArray<T>::Sort(EC_BOOL bAscending /* EC_TRUE*/)
                     T* curr = &(node->m_sData);
                     T* next = &(node->next->m_sData);
                     EC_S32 bCompareResult = m_pCompare->Compare(curr, next);
-                    if( (bSortType && (bCompareResult == EC_GREATER))
-                        || (!bSortType && (bCompareResult == EC_LESSTHEN)) )
+                    if( (bSortType && (bCompareResult == EC_CMP_GREATER))
+                        || (!bSortType && (bCompareResult == EC_CMP_LESSTHEN)) )
                     {
                         T currData = node->m_sData;
                         T nextData = next->m_sData;

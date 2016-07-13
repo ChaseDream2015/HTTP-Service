@@ -32,9 +32,9 @@
 #ifndef EC_COMPARE_H
 #define EC_COMPARE_H
 
-#define EC_GREATER      1
-#define EC_EQUALTO      0
-#define EC_LESSTHEN    -1
+#define EC_CMP_GREATER      1
+#define EC_CMP_EQUALTO      0
+#define EC_CMP_LESSTHEN    -1
 
 template<typename T>
 class ECCompare

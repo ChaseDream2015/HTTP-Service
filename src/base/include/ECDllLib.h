@@ -33,8 +33,14 @@
 
 #ifdef EC_OS_Win32
 #include <windows.h>
-#else
-#include <Linux.h> /* TODO */
+#elif defined EC_OS_Linux
+/* TODO */
+#elif defined EC_OS_MacOS
+/* TODO */
+#elif defined EC_OS_iOS
+/* TODO */
+#elif defined EC_OS_Android
+/* TODO */
 #endif
 
 
@@ -44,10 +50,17 @@
 #define EC_EXPORT            __declspec (dllexport)
 #endif
 
+
 #ifdef EC_OS_Win32
 #define  EC_ExAPI    WINAPI
-#else
-#define  EC_ExAPI    /* Linux API or iOS API*/
+#elif defined EC_OS_Linux
+#define  EC_ExAPI
+#elif defined EC_OS_MacOS
+#define  EC_ExAPI
+#elif defined EC_OS_iOS
+#define  EC_ExAPI
+#elif defined EC_OS_Android
+#define  EC_ExAPI
 #endif
 
 #endif /* EC_DLL_LIB_H */

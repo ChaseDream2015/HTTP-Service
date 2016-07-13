@@ -38,52 +38,52 @@ extern "C" {
 #endif
 
 /* signed type */
-typedef _EC_CHAR               EC_CHAR;
-typedef _EC_SHORT              EC_SHORT;
-typedef _EC_LONG               EC_LONG;
-typedef _EC_S32                EC_S32;
-typedef _EC_INT                EC_INT;
-typedef _EC_S64                EC_S64;
-typedef _EC_FLOAT              EC_FLOAT;
-typedef _EC_DOUBLE             EC_DOUBLE;
-typedef _EC_LONG_DOUBLE        EC_LDOUBLE;
-typedef _EC_WCHAR              EC_WCHAR;
-typedef _EC_CONST_CHAR         EC_CONST_CHAR;
+typedef _EC_CHAR         EC_CHAR;
+typedef _EC_SHORT        EC_SHORT;
+typedef _EC_LONG         EC_LONG;
+typedef _EC_S32          EC_S32;
+typedef _EC_INT          EC_INT;
+typedef _EC_S64          EC_S64;
+typedef _EC_FLOAT        EC_FLOAT;
+typedef _EC_DOUBLE       EC_DOUBLE;
+typedef _EC_LONG_DOUBLE  EC_LDOUBLE;
+typedef _EC_WCHAR        EC_WCHAR;
+typedef _EC_CONST_CHAR   EC_CONST_CHAR;
 
 /* unsigned domain */
-typedef _EC_U8                 EC_U8;
-typedef _EC_U16                EC_U16;
-typedef _EC_U32                EC_U32;
-typedef _EC_U64                EC_U64;
+typedef _EC_U8           EC_U8;
+typedef _EC_U16          EC_U16;
+typedef _EC_U32          EC_U32;
+typedef _EC_U64          EC_U64;
 
 /* bool */
-typedef _EC_BOOL               EC_BOOL;
+typedef _EC_BOOL         EC_BOOL;
 
 #ifdef __cplusplus
-#define EC_FALSE               false
-#define EC_TRUE                true
+#define EC_FALSE         false
+#define EC_TRUE          true
 #else
-#define EC_FALSE               _EC_FALSE
-#define EC_TRUE                (!EC_FALSE)
+#define EC_FALSE         _EC_FALSE
+#define EC_TRUE          (!EC_FALSE)
 #endif
 
 /* void */
-#define EC_VOID           _EC_VOID
+#define EC_VOID          _EC_VOID
 
 /* pointer */
-typedef _EC_POINTER       EC_PTR;
-typedef _EC_POINTER       EC_VOIDP;
-typedef _EC_POINTER       EC_POINTER;
-typedef EC_POINTER        EC_HANDLE;
-typedef EC_POINTER        EC_FUNENTRY;
-typedef EC_POINTER        EC_BUFFER;
-#define EC_NULL           _EC_NULL
+typedef _EC_POINTER      EC_PTR;
+typedef _EC_POINTER      EC_VOIDP;
+typedef _EC_POINTER      EC_POINTER;
+typedef EC_POINTER       EC_HANDLE;
+typedef EC_POINTER       EC_FUNENTRY;
+typedef EC_POINTER       EC_BUFFER;
+#define EC_NULL          _EC_NULL
 
 /* max define */
-#define EC_U8_MAX         _EC_U8_MAX
-#define EC_U16_MAX        _EC_U16_MAX
-#define EC_U32_MAX        _EC_U32_MAX
-#define EC_U64_MAX        _EC_U64_MAX
+#define EC_U8_MAX       _EC_U8_MAX
+#define EC_U16_MAX      _EC_U16_MAX
+#define EC_U32_MAX      _EC_U32_MAX
+#define EC_U64_MAX      _EC_U64_MAX
 
 /* time struct */
 typedef struct
@@ -105,15 +105,15 @@ typedef struct
 } EC_Date;
 
 #ifdef EC_OS_Win32
-#define ecThreadHandle  HANDLE
+    #define ecThreadHandle  HANDLE
 #elif defined EC_OS_Linux
-#define ecThreadHandle  pthread_t
+    #define ecThreadHandle  pthread_t
 #elif defined EC_OS_MacOS
-/* TODO */
+    /* TODO */
 #elif defined EC_OS_iOS
-#define ecThreadHandle  pthread_t
+    #define ecThreadHandle  pthread_t
 #elif defined EC_OS_Android
-/* TODO */
+    /* TODO */
 #endif
 
 #ifdef __cplusplus
