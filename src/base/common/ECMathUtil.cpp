@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for math util APIs implementaion.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -41,12 +41,12 @@
     } while (0)
 
 
-EC_U32 ecMathUtilAbsS32(EC_S32 nNumber)
+EC_U32 ecMathAbsS32(EC_S32 nNumber)
 {
     ABS(nNumber);
 }
 
-EC_DOUBLE ecMathUtilAbsDouble(EC_DOUBLE nNumber)
+EC_DOUBLE ecMathAbsDouble(EC_DOUBLE nNumber)
 {
     ABS(nNumber);
 }

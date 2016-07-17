@@ -19,31 +19,28 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 * ---------------------------------------------------------------------
-* ECMathUtil.h
-* This file for math util APIs define.
-*
-* Eamil:   epengao@126.com
-* Author:  Gao Peng
-* Version: Intial first version.
+* ECDyLibraryLoader.h
+* This file for dll loader define and encapsulation.
+* Eamil:  epengao@126.com
+* Author: Gao Peng
 * --------------------------------------------------------------------
 */
 
-#ifndef EC_MATH_UTIL_H
-#define EC_MATH_UTIL_H
+#ifndef EC_DY_LIBRARY_LOADER_H
+#define EC_DY_LIBRARY_LOADER_H
 
 #include "ECType.h"
+#include "ECDyLibLoader.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+class ECDyLibraryLoader
+{
+public:
+    static EC_HANDLE   LoadDyLib(EC_PCHAR pLibPath);
+    static EC_VOID     FreeDyLib(EC_HANDLE pLibHandle);
+    static EC_FUNENTRY GetDyLibFunAddress(EC_HANDLE hLibHandle, EC_PCHAR pFunName);
 
+private:
+    ECDyLibraryLoader();
+};
 
-EC_U32 ecMathAbsS32(EC_S32 nNumber);
-EC_DOUBLE ecMathAbsDouble(EC_DOUBLE nNumber);
-
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* EC_MATH_UTIL_H */
+#endif /* EC_DY_LIBRARY_LOADER_H */

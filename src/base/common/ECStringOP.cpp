@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for redefing all the EC string interface operation implement.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * ------------------------------------------------------------------------
 */
@@ -33,12 +33,12 @@
 #include "ECStringOP.h"
 
 
-EC_U32 ECStringOP::StrLen(EC_CONST_PCHAR pStr)
+EC_U32 ecStrLen(EC_CONST_PCHAR pStr)
 {
     return (EC_U32)strlen(pStr);
 }
 
-EC_CHAR ECStringOP::ToUpper(EC_CHAR cChar)
+EC_CHAR ecToUpper(EC_CHAR cChar)
 {
     EC_CHAR cRet = cChar;
     if(('a'<=cChar) && (cChar<='z'))
@@ -46,7 +46,7 @@ EC_CHAR ECStringOP::ToUpper(EC_CHAR cChar)
     return cRet;
 }
 
-EC_CHAR ECStringOP::ToLower(EC_CHAR cChar)
+EC_CHAR ecToLower(EC_CHAR cChar)
 {
     EC_CHAR cRet = cChar;
     if(('A'<=cChar) && (cChar<='Z'))
@@ -54,57 +54,57 @@ EC_CHAR ECStringOP::ToLower(EC_CHAR cChar)
     return cRet;
 }
 
-EC_PCHAR ECStringOP::ToUpperStr(EC_PCHAR pStr)
+EC_PCHAR ecToUpperStr(EC_PCHAR pStr)
 {
     EC_PCHAR pRet = pStr;
     while((*pStr) != '\0')
     {
-        *pStr = ECStringOP::ToUpper(*pStr);
+        *pStr = ecToUpper(*pStr);
         pStr++;
     }
     return pRet;
 }
 
-EC_PCHAR ECStringOP::ToLowerStr(EC_PCHAR pStr)
+EC_PCHAR ecToLowerStr(EC_PCHAR pStr)
 {
     EC_PCHAR pRet = pStr;
     while((*pStr) != '\0')
     {
-        *pStr = ECStringOP::ToLower(*pStr);
+        *pStr = ecToLower(*pStr);
         pStr++;
     }
     return pRet;
 }
 
-EC_PCHAR ECStringOP::StrCopy(EC_PCHAR pDest, EC_CONST_PCHAR pSrc)
+EC_PCHAR ecStrCopy(EC_PCHAR pDest, EC_CONST_PCHAR pSrc)
 {
     return strcpy(pDest, pSrc);
 }
 
-EC_PCHAR ECStringOP::StrNCopy(EC_PCHAR pDest, const EC_PCHAR pSrc, EC_U32 uSize)
+EC_PCHAR ecStrNCopy(EC_PCHAR pDest, const EC_PCHAR pSrc, EC_U32 uSize)
 {
     return strncpy(pDest, pSrc, uSize);
 }
 
-EC_PCHAR ECStringOP::StrCat(EC_PCHAR pDest, const EC_PCHAR pSrc)
+EC_PCHAR ecStrCat(EC_PCHAR pDest, const EC_PCHAR pSrc)
 {
     return strcat(pDest, pSrc);
 }
 
-EC_PCHAR ECStringOP::StrAddPrefix(EC_PCHAR pStr, const EC_PCHAR pPrefix)
+EC_PCHAR ecStrAddPrefix(EC_PCHAR pStr, const EC_PCHAR pPrefix)
 {
-    EC_PCHAR pNewStr = new EC_CHAR[ECStringOP::StrLen(pStr) +
-                                   ECStringOP::StrLen(pPrefix) + 1];
-    ECStringOP::StrCopy(pNewStr, pPrefix);
-    ECStringOP::StrCat(pNewStr, pStr);
+    EC_PCHAR pNewStr = new EC_CHAR[ecStrLen(pStr) +
+                                   ecStrLen(pPrefix) + 1];
+    ecStrCopy(pNewStr, pPrefix);
+    ecStrCat(pNewStr, pStr);
     delete []pStr;
     pStr = pNewStr;
     return pStr;
 }
 
-EC_PCHAR ECStringOP::StrInsertChar(EC_PCHAR pStr, EC_CHAR cChar, EC_U32 uIndex)
+EC_PCHAR ecStrInsertChar(EC_PCHAR pStr, EC_CHAR cChar, EC_U32 uIndex)
 {
-    EC_U32 uLength = ECStringOP::StrLen(pStr);
+    EC_U32 uLength = ecStrLen(pStr);
     if(uIndex > uLength)
         return EC_NULL;
 
@@ -112,19 +112,19 @@ EC_PCHAR ECStringOP::StrInsertChar(EC_PCHAR pStr, EC_CHAR cChar, EC_U32 uIndex)
     if((0 < uIndex) && (uIndex < uLength))
     {
         pNewStr[uIndex] = cChar;
-        ECStringOP::StrNCopy(pNewStr, pStr, uIndex);
-        ECStringOP::StrCopy(pNewStr+uIndex+1, pStr+uIndex);
+        ecStrNCopy(pNewStr, pStr, uIndex);
+        ecStrCopy(pNewStr+uIndex+1, pStr+uIndex);
     }
     else if (uLength == uIndex)
     {
-        ECStringOP::StrCopy(pNewStr, pStr);
+        ecStrCopy(pNewStr, pStr);
         pNewStr[uLength] = cChar;
         pNewStr[uLength+1] = '\0';
     }
     else if(0 == uIndex)
     {
         pNewStr[0] = cChar;
-        ECStringOP::StrCopy(pNewStr+1, pStr);
+        ecStrCopy(pNewStr+1, pStr);
     }
 
     delete pStr;
@@ -132,106 +132,106 @@ EC_PCHAR ECStringOP::StrInsertChar(EC_PCHAR pStr, EC_CHAR cChar, EC_U32 uIndex)
     return pStr;
 }
 
-EC_PCHAR ECStringOP::StrInsertStr(EC_PCHAR pStr, const EC_PCHAR pInsert, EC_U32 uIndex)
+EC_PCHAR ecStrInsertStr(EC_PCHAR pStr, const EC_PCHAR pInsert, EC_U32 uIndex)
 {
-    EC_U32 uSrcLength = ECStringOP::StrLen(pStr);
-    EC_U32 uInsertLength = ECStringOP::StrLen(pInsert);
+    EC_U32 uSrcLength = ecStrLen(pStr);
+    EC_U32 uInsertLength = ecStrLen(pInsert);
     EC_U32 uTotalLength = uSrcLength + uInsertLength;
 
     if(uIndex > uSrcLength)
         return EC_NULL;
-    
+
     EC_PCHAR pNewStr = new EC_CHAR[uTotalLength + 1];
     if((0 < uIndex) && (uIndex < uSrcLength))
     {
-        ECStringOP::StrCopy(pNewStr+uIndex, pInsert);
-        ECStringOP::StrNCopy(pNewStr, pStr, uSrcLength);
-        ECStringOP::StrCopy(pNewStr+uInsertLength, pStr+uIndex);
+        ecStrCopy(pNewStr+uIndex, pInsert);
+        ecStrNCopy(pNewStr, pStr, uSrcLength);
+        ecStrCopy(pNewStr+uInsertLength, pStr+uIndex);
     }
     else if (uSrcLength == uIndex)
     {
-        ECStringOP::StrCat(pNewStr, pInsert);
+        ecStrCat(pNewStr, pInsert);
     }
     else if(0 == uIndex)
     {
-        ECStringOP::StrCopy(pNewStr, pInsert);
-        ECStringOP::StrCopy(pNewStr+uInsertLength, pStr);
+        ecStrCopy(pNewStr, pInsert);
+        ecStrCopy(pNewStr+uInsertLength, pStr);
     }
-    
+
     delete pStr;
     pStr = pNewStr;
     return pStr;
 }
 
-EC_PCHAR ECStringOP::StrStr(EC_PCHAR pDest, EC_PCHAR pFind)
+EC_PCHAR ecStrStr(EC_PCHAR pDest, EC_PCHAR pFind)
 {
     return strstr(pDest, pFind);
 }
 
-EC_PCHAR ECStringOP::StrSet(EC_PCHAR pStr, EC_CHAR cChar)
+EC_PCHAR ecStrSet(EC_PCHAR pStr, EC_CHAR cChar)
 {
-    memset(pStr, cChar, ECStringOP::StrLen(pStr));
+    memset(pStr, cChar, ecStrLen(pStr));
     return pStr;
 }
 
-EC_S32 ECStringOP::StrCompare(EC_PCHAR pStr1, EC_PCHAR pStr2)
+EC_S32 ecStrCompare(EC_PCHAR pStr1, EC_PCHAR pStr2)
 {
     return strcmp(pStr1, pStr2);
 }
 
-EC_S32 ECStringOP::StrNCompare(EC_PCHAR pStr1, EC_PCHAR pStr2, EC_U32 uSize)
+EC_S32 ecStrNCompare(EC_PCHAR pStr1, EC_PCHAR pStr2, EC_U32 uSize)
 {
     return strncmp(pStr1, pStr2, uSize);
 }
 
-EC_S32 ECStringOP::StrCaseCompare(EC_PCHAR pStr1, EC_PCHAR pStr2)
+EC_S32 ecStrCaseCompare(EC_PCHAR pStr1, EC_PCHAR pStr2)
 {
     EC_S32 nRet;
-    EC_PCHAR pTmpStr1 = new EC_CHAR[ECStringOP::StrLen(pStr1)+1];
-    EC_PCHAR pTmpStr2 = new EC_CHAR[ECStringOP::StrLen(pStr2)+1];
-    ECStringOP::StrCopy(pTmpStr1, pStr1);
-    ECStringOP::StrCopy(pTmpStr2, pStr2);
-    nRet = ECStringOP::StrCompare(ECStringOP::ToLowerStr(pTmpStr1), 
-                                    ECStringOP::ToLowerStr(pTmpStr2));
+    EC_PCHAR pTmpStr1 = new EC_CHAR[ecStrLen(pStr1)+1];
+    EC_PCHAR pTmpStr2 = new EC_CHAR[ecStrLen(pStr2)+1];
+    ecStrCopy(pTmpStr1, pStr1);
+    ecStrCopy(pTmpStr2, pStr2);
+    nRet = ecStrCompare(ecToLowerStr(pTmpStr1),
+                                    ecToLowerStr(pTmpStr2));
     delete []pTmpStr1;
     delete []pTmpStr2;
     return nRet;
 }
 
-EC_S32 ECStringOP::StrNCaseCompare(EC_PCHAR pStr1, EC_PCHAR pStr2, EC_U32 uSize)
+EC_S32 ecStrNCaseCompare(EC_PCHAR pStr1, EC_PCHAR pStr2, EC_U32 uSize)
 {
     EC_S32 nRet;
-    EC_PCHAR pTmpStr1 = new EC_CHAR[ECStringOP::StrLen(pStr1)+1];
-    EC_PCHAR pTmpStr2 = new EC_CHAR[ECStringOP::StrLen(pStr2)+1];
-    ECStringOP::StrCopy(pTmpStr1, pStr1);
-    ECStringOP::StrCopy(pTmpStr2, pStr2);
-    nRet = ECStringOP::StrNCompare(ECStringOP::ToLowerStr(pTmpStr1), 
-                                     ECStringOP::ToLowerStr(pTmpStr2), uSize);
+    EC_PCHAR pTmpStr1 = new EC_CHAR[ecStrLen(pStr1)+1];
+    EC_PCHAR pTmpStr2 = new EC_CHAR[ecStrLen(pStr2)+1];
+    ecStrCopy(pTmpStr1, pStr1);
+    ecStrCopy(pTmpStr2, pStr2);
+    nRet = ecStrNCompare(ecToLowerStr(pTmpStr1),
+                                     ecToLowerStr(pTmpStr2), uSize);
     delete []pTmpStr1;
     delete []pTmpStr2;
     return nRet;
 }
 
-EC_S32 ECStringOP::StrToInt(const EC_PCHAR pStr)
+EC_S32 ecStrToInt(const EC_PCHAR pStr)
 {
     return atoi(pStr);
     return 0;
 }
 
-EC_PCHAR ECStringOP::IntToStr(EC_PCHAR pStr, EC_S32 nInt)
+EC_PCHAR ecIntToStr(EC_PCHAR pStr, EC_S32 nInt)
 {
     sprintf(pStr, "%d", nInt);
     return pStr;
 }
 
-EC_PCHAR ECStringOP::WideStrToCStr(EC_PCHAR pStr, const EC_PWCHAR pWstr)
+EC_PCHAR ecWideStrToCStr(EC_PCHAR pStr, const EC_PWCHAR pWstr)
 {
     wcstombs(pStr, pWstr, wcslen(pWstr));
     return pStr;
 }
 
-EC_PWCHAR ECStringOP::CStrToWideStr(EC_PWCHAR pWstr, const EC_PCHAR pStr)
+EC_PWCHAR ecCStrToWideStr(EC_PWCHAR pWstr, const EC_PCHAR pStr)
 {
-    mbstowcs(pWstr, pStr, ECStringOP::StrLen(pStr));
+    mbstowcs(pWstr, pStr, ecStrLen(pStr));
     return pWstr;
 }

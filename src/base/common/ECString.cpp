@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for EC project common string interface implementation.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -42,8 +42,7 @@ ECString::ECString()
 
 ECString::~ECString()
 {
-    if(m_pStr)
-        delete []m_pStr;
+    if(m_pStr) delete []m_pStr;
 }
 
 ECString::ECString(EC_CONST_PCHAR pStr)
@@ -54,8 +53,7 @@ ECString::ECString(EC_CONST_PCHAR pStr)
     {
         m_nSize = ECStringOP::StrLen(pStr);
         m_pStr = new EC_CHAR[m_nSize + 1];
-        if(m_pStr)
-            ECStringOP::StrCopy(m_pStr, pStr);
+        if(m_pStr) ECStringOP::StrCopy(m_pStr, pStr);
     }
 }
 
@@ -66,8 +64,7 @@ ECString::ECString(const ECString &rString)
     if(m_nSize > 0)
     {
         m_pStr = new EC_CHAR[m_nSize + 1];
-        if(m_pStr)
-            ECStringOP::StrCopy(m_pStr, rString.m_pStr);
+        if(m_pStr) ECStringOP::StrCopy(m_pStr, rString.m_pStr);
     }
 }
 
@@ -188,7 +185,7 @@ ECString& ECString::operator=(const EC_PCHAR pStr)
         m_pStr = EC_NULL;
         m_nSize = 0;
     }
-    
+
     if(pStr)
     {
         m_nSize = ECStringOP::StrLen(pStr);

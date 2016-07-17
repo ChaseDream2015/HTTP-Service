@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,33 +19,27 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 * ---------------------------------------------------------------------
-* LibraryLoader.h
-* This file for dll loader define and encapsulation.
+* ECDyLibraryLoader.cpp
+* This file for dynamic library loader implementation
 * Eamil:  epengao@126.com
-* Author: Peter Gao
+* Author: Gao Peng
 * --------------------------------------------------------------------
 */
 
-#ifndef LIBRARY_LOADER_H
-#define LIBRARY_LOADER_H
+#include "ECDyLibraryLoader.h"
 
-#include "ECType.h"
-
-#ifdef EC_OS_Win32
-#include <windows.h>
-#elif defined _LINUX
-#include <Linux.h>???
-#endif
-
-class LibraryLoader
+EC_HANDLE ECDyLibraryLoader::LoadDyLib(EC_PCHAR pLibPath)
 {
-public:
-    static EC_HANDLE   LoadDLL(EC_PCHAR pDllPath);
-    static EC_VOID     FreeDLL(EC_HANDLE pDLLHandle);
-    static EC_FUNENTRY GetDLLFunAddress(EC_HANDLE hDllHandle, EC_PCHAR pFunName);
+    return ecLoadDyLib(pLibPath);
+}
 
-private:
-    LibraryLoader();
-};
+void ECDyLibraryLoader::FreeDylib(EC_HANDLE pLibHandle)
+{
+    ecFreeDyLib(pLibHandle);
+}
 
-#endif /* LIBRARY_LOADER_H */
+EC_FUNENTRY ECDyLibraryLoader::GetDyLibFunAddress(EC_HANDLE hLibHandle, EC_PCHAR pFunName)
+{
+    return ecGetDyLibFuncAddress(hLibHandle, pFunName);
+}
+

@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for all EC memory operation interface define.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -34,14 +34,14 @@
 extern "C" {
 #endif
 
-EC_PTR ecMemAlloc(EC_U32 uSize);
+EC_PTR  ecMemAlloc(EC_U32 uSize);
 EC_VOID ecMemFree(EC_PTR pMem);
 EC_VOID ecMemSet(EC_PTR pMem, EC_S32 val, EC_U32 uSize);
 EC_VOID ecMemCopy(EC_PTR pDest, EC_PTR pSrc, EC_U32 uSize);
 EC_VOID ecMemMove(EC_PTR pDest, EC_PTR pSrc, EC_U32 uSize);
-EC_S32 ecMemCompare(EC_PTR pBuf1, EC_PTR pBuf2, EC_U32 uSize);
-EC_S32 ecFindByteFromMem(EC_CHAR cFindByte, EC_PTR pFrom, EC_U32 nFromSize);
-EC_S32 ecFindMemFromMem(EC_PTR pFind, EC_U32 nFindSize, EC_PTR pFrom, EC_U32 nFromSize);
+EC_S32  ecMemCompare(EC_PTR pBuf1, EC_PTR pBuf2, EC_U32 uSize);
+EC_S32  ecFindByteFromMem(EC_CHAR cFindByte, EC_PTR pFrom, EC_U32 nFromSize);
+EC_S32  ecFindMemFromMem(EC_PTR pFind, EC_U32 nFindSize, EC_PTR pFrom, EC_U32 nFromSize);
 
 #ifdef __cplusplus
 }
