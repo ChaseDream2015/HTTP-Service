@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for Common file operation interface define.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -70,8 +70,8 @@ public:
     EC_CHAR ReadChar();
     EC_U32 WriteChar(EC_CHAR cChar);
     EC_U32 ReadStrLine(EC_PCHAR pStr, EC_U32 nSize);
-    EC_U32 ReadBuffer(EC_BUFFER pBuf, EC_U32 nBufSize, EC_U32 nBufCount);
-    EC_U32 WriteBuffer(EC_BUFFER pBuf, EC_U32 nBufSize, EC_U32 nBufCount);
+    EC_U32 ReadBuffer(EC_VOIDP pBuf, EC_U32 nBufSize, EC_U32 nBufCount);
+    EC_U32 WriteBuffer(EC_VOIDP pBuf, EC_U32 nBufSize, EC_U32 nBufCount);
     EC_U32 Seek(EC_S32 nOffset, EC_U32 nFromPos);
 
 private:

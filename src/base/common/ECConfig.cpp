@@ -2,7 +2,7 @@
  * This software is developed for study and improve coding skill ...
  *
  * Project:  Enjoyable Coding< EC >
- * Copyright (C) 2014-2016 Gao Peng
+ * Copyright (C) Gao Peng, 2015
 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
  * This file for Common software configuration interface implementation.
  *
  * Eamil:   epengao@126.com
- * Author:  Peter Gao
+ * Author:  Gao Peng
  * Version: Intial first version.
  * --------------------------------------------------------------------
  */
@@ -37,7 +37,7 @@ ECConfig::ECConfig(const EC_PCHAR pFilePath)
 :m_nCount(0)
 ,m_sFile(pFilePath)
 {
-    if(EC_Err_None == m_sFile.Open((EC_PCHAR)"rt"))
+    if(EC_Err_None == m_sFile.Open((EC_PCHAR)(EC_FILE_OPEN_RWT)))
     {
         ECString pKey;
         ECString pVal;

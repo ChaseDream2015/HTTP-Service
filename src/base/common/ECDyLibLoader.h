@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,17 +19,17 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 * ---------------------------------------------------------------------
-* ECDllLoader.h
-* This file for dll loader APIs define.
+* ECDyLibLoader.h
+* This file for dynamic lib loader APIs define.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
 
-#ifndef EC_DLL_LOADER_H
-#define EC_DLL_LOADER_H
+#ifndef EC_DY_LIB_LOADER_H
+#define EC_DY_LIB_LOADER_H
 
 #include "ECType.h"
 
@@ -49,9 +49,9 @@
 extern "C" {
 #endif
 
-EC_HANDLE   ecLoadDLL(EC_PCHAR pDllPath);
-EC_VOID     ecFreeDLL(EC_HANDLE pDLLHandle);
-EC_FUNENTRY ecGetDLLFunAddress(EC_HANDLE hDllHandle, EC_PCHAR pFunName);
+EC_HANDLE   ecLoadDyLib(EC_PCHAR pDyLibPath);
+EC_VOID     ecFreeDyLib(EC_HANDLE pDyLibHandle);
+EC_FUNENTRY ecGetDyLibFuncAddress(EC_HANDLE hDyLibHandle, EC_PCHAR pFuncName);
 
 #ifdef __cplusplus
 }

@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for Common file operation interface implementation.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -112,12 +112,40 @@ EC_LONG ECFile::GetSize()
 
 EC_U32 ECFile::GetPath(EC_PCHAR pPathOut)
 {
-#ifdef EC_OS_Linux
+    EC_U32 nRet = EC_Err_None;
+#ifdef EC_OS_Win32
+    if(m_pFilePath)
+    {
+        ECStringOP::StrCopy(pPathOut, m_pFilePath);
+        return nRet;
+    }
+    else return EC_Err_NotImplement;
+#elif defined EC_OS_MacOS
+    if(m_pFilePath)
+    {
+        ECStringOP::StrCopy(pPathOut, m_pFilePath);
+        return nRet;
+    }
+    else return EC_Err_NotImplement;
+#elif defined EC_OS_iOS
+    if(m_pFilePath)
+    {
+        ECStringOP::StrCopy(pPathOut, m_pFilePath);
+        return nRet;
+    }
+    else return EC_Err_NotImplement;
+#elif defined EC_OS_Android
+    if(m_pFilePath)
+    {
+        ECStringOP::StrCopy(pPathOut, m_pFilePath);
+        return nRet;
+    }
+    else return EC_Err_NotImplement;
+#elif defined EC_OS_Linux
     if(EC_NULL == pPathOut)
         return EC_Err_BadParam;
 
     EC_U32 nFD = -1;
-    EC_U32 nRet = EC_Err_None;
     if(m_pFilePath)
     {
         ECStringOP::StrCopy(pPathOut, m_pFilePath);
@@ -142,12 +170,6 @@ EC_U32 ECFile::GetPath(EC_PCHAR pPathOut)
 
     return nRet;
 #endif
-
-    if(m_pFilePath)
-    {
-        ECStringOP::StrCopy(pPathOut, m_pFilePath);
-    }
-    return EC_Err_None;
 }
 
 EC_U32 ECFile::Flush()
@@ -165,7 +187,7 @@ EC_CHAR ECFile::ReadChar()
 {
     if(m_pFile)
         return fgetc(m_pFile);
-    
+
     return EC_FILE_EOF;
 }
 

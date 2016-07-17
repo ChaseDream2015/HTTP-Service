@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for ECBuffer class implement.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * ------------------------------------------------------------------------
 */
@@ -90,7 +90,7 @@ EC_U32 ECBuffer::Read(EC_PTR pBuf, EC_U32 nBufMaxSize)
         if (nLeftDataSize > 0)
         {
             EC_PTR pNewBuf = ecMemAlloc(nLeftDataSize);
-            EC_PU8 pLeftData = (EC_PU8)m_pBuffer + nRet;
+            EC_CHAR* pLeftData = (EC_CHAR*)m_pBuffer + nRet;
             ecMemCopy(pNewBuf, pLeftData, nLeftDataSize);
 
             delete m_pBuffer;
@@ -116,7 +116,7 @@ EC_U32 ECBuffer::Write(EC_PTR pData, EC_U32 nDataSize)
             EC_U32 nNewSize = m_nBufferSize + nDataSize;
             EC_PTR pNewBuffer = ecMemAlloc(nNewSize);
             ecMemCopy(pNewBuffer, m_pBuffer, m_nBufferSize);
-            ecMemCopy((EC_PU8)pNewBuffer + m_nBufferSize, pData, nDataSize);
+            ecMemCopy((EC_CHAR*)pNewBuffer + m_nBufferSize, pData, nDataSize);
             delete m_pBuffer;
             m_pBuffer = pNewBuffer;
             m_nBufferSize = nNewSize;
