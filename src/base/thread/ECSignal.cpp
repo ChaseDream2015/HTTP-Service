@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for ECSignal interface implementation.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -86,9 +86,9 @@ void ECSignal::Wait()
 #elif defined EC_OS_MacOS
     /* TODO */
 #elif defined EC_OS_iOS
-    pthread_mutex_lock(&m_Mutex); 
+    pthread_mutex_lock(&m_Mutex);
     pthread_cond_wait(&m_Cond, &m_Mutex);
-    pthread_mutex_unlock(&m_Mutex); 
+    pthread_mutex_unlock(&m_Mutex);
 #elif defined EC_OS_Android
     /* TODO */
 #endif
@@ -106,7 +106,7 @@ void ECSignal::TimedWait(EC_U32 nTimeout)
     struct timespec timeout;
     timeout.tv_nsec = 0;
     timeout.tv_sec = time(NULL) + nTimeout;
-    pthread_mutex_lock(&m_Mutex); 
+    pthread_mutex_lock(&m_Mutex);
     return pthread_cond_timedwait(&m_Cond, &m_Mutex, &timeout);;
     pthread_mutex_unlock(&m_Mutex);
 #elif defined EC_OS_Android
