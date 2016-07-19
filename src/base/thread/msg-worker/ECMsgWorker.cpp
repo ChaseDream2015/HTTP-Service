@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for ECMsgWorker interface & encapsulation implementation.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -35,7 +35,7 @@
 
 
 ECMsgWorker::ECMsgWorker(
-                         ECMsgHandlerI* pMsgHandler, 
+                         ECMsgHandlerI* pMsgHandler,
                          EC_PCHAR pThreadName
                          )
 :m_strName(pThreadName)

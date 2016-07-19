@@ -64,8 +64,9 @@ private:
 #elif defined EC_OS_iOS
     //sem_t*   m_hSemaphore;
     //EC_PCHAR m_pSemaphoreName;
-    int signal_times;
-    pthread_cond_t cond;
+    int m_nSignalTimes;
+    pthread_cond_t m_Cond;
+    pthread_mutex_t m_Mutex;
 #elif defined EC_OS_Android
     /* TODO */
 #endif

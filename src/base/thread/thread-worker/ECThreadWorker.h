@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for ECThreadWorker define and encapsulation.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -50,8 +50,9 @@
 /* TODO */
 #endif
 
-#define LOOP_CHECK_TIME  1000
-#define MAX_THREAD_COUNT 1024
+#define LOOP_CHECK_TIME   1000
+#define MAX_THREAD_COUNT   128
+#define THREAD_ID_OFFSET 0x100
 
 typedef struct
 {
@@ -65,14 +66,15 @@ class ECThreadWorker
 {
 public:
     ECThreadWorker(
-        EC_U32 nCapability = MAX_THREAD_COUNT,
-        EC_PCHAR pThreadWorkerName = EC_NULL
+                  EC_U32 nCapability = MAX_THREAD_COUNT,
+                  EC_PCHAR pThreadWorkerName = EC_NULL
                   );
     ~ECThreadWorker();
     EC_VOID WaitStopAllThreads();
     EC_VOID ForceStopAllThreads();
     const ECThreadWorkerInfo* GetThreadWorkerInfo();
-    EC_U32 AddThread(void*(*ThreadProcEntry)(void*), void* pParam, EC_PCHAR pThreadName = EC_NULL);
+    EC_S32 AddThread(void*(*ThreadProcEntry)(void*), void* pParam, EC_PCHAR pThreadName = EC_NULL);
+    EC_VOID RemoveThread(EC_U32 nThreadID);
 
 private:
     EC_VOID UpdateThreadArray();

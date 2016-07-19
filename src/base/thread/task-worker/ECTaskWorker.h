@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for ECTaskWorker define and encapsulation.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -58,7 +58,7 @@ typedef enum
 } ECTaskWorkerStatus;
 
 #define MAX_EXIT_WAIT 500
-#define DFT_TASK_SIZE 1024
+#define MAX_TASK_SIZE 128
 
 struct ECTask;
 
@@ -66,8 +66,8 @@ class ECTaskWorker
 {
 public:
     ECTaskWorker(
-        EC_U32 nCapability = DFT_TASK_SIZE,
-        EC_PCHAR pTaskWorkerName = EC_NULL
+                EC_U32 nCapability = MAX_TASK_SIZE,
+                EC_PCHAR pTaskWorkerName = EC_NULL
                 );
     ~ECTaskWorker();
 
@@ -75,7 +75,7 @@ public:
     EC_VOID Pause();
     EC_VOID Stop();
     void CancelAllTask();
-    EC_U32 AddTask(void* pUserData, void*(*TaskHandler)(void*,void*), void* pParam);
+    EC_U32 AddTask(void* pUserData, void*(*TaskProcEntry)(void*,void*), void* pParam);
 
 private:
     void WaitTaskProcExit();

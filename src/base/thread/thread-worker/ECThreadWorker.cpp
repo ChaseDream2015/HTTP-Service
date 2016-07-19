@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for ECThreadWorker interface & encapsulation implementation.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -69,8 +69,9 @@ ECThreadWorker::~ECThreadWorker()
     }
 }
 
-EC_U32 ECThreadWorker::AddThread(void*(*ThreadProcEntry)(void*), void* pParam, EC_PCHAR pThreadName)
+EC_S32 ECThreadWorker::AddThread(void*(*ThreadProcEntry)(void*), void* pParam, EC_PCHAR pThreadName)
 {
+    EC_S32 nRet = -1;
     EC_S32 nIndex = FindUseableThreadIndex();
     if ((nIndex >= 0) || (nIndex < m_nCapabilty))
     {
@@ -81,9 +82,19 @@ EC_U32 ECThreadWorker::AddThread(void*(*ThreadProcEntry)(void*), void* pParam, E
             m_pThreadArray[nIndex].Start();
             m_nActiveThreadCount++;
         }
-        return EC_Err_None;
+        nRet = nIndex + THREAD_ID_OFFSET;
     }
-    return EC_Err_ContainerFull;
+    return nRet;
+}
+
+EC_VOID ECThreadWorker::RemoveThread(EC_U32 nThreadID)
+{
+    EC_S32 nIndex = nThreadID - THREAD_ID_OFFSET;
+    if ((nIndex >= 0) || (nIndex < m_nCapabilty))
+    {
+        if (m_pThreadArray[nIndex].IsThreadActive())
+            m_pThreadArray[nIndex].ForceStop();
+    }
 }
 
 EC_VOID ECThreadWorker::WaitStopAllThreads()

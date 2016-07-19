@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,7 +23,7 @@
 * This file for ECTaskWorker interface & encapsulation implementation.
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -38,12 +38,13 @@ typedef struct
 {
     void* pParam;
     void* pUserData;
-    void*(*TaskHandler)(void* pUdt, void* pParm);
+    void*(*TaskProcEntry)(void* pUdt, void* pParm);
 } ECTask;
 
 ECTaskWorker::ECTaskWorker(
-    EC_U32 nCapability,
-    EC_PCHAR pTaskWorkerName)
+                          EC_U32 nCapability,
+                          EC_PCHAR pTaskWorkerName
+                          )
 :m_pTaskQueue(EC_NULL)
 ,m_semWorkerPause(0, 1)
 ,m_strWokerName(pTaskWorkerName)
@@ -114,13 +115,13 @@ void ECTaskWorker::CancelAllTask()
     }
 }
 
-EC_U32 ECTaskWorker::AddTask(void* pUserData, void*(*TaskHandler)(void*,void*), void* pParam)
+EC_U32 ECTaskWorker::AddTask(void* pUserData, void*(*TaskProcEntry)(void*,void*), void* pParam)
 {
     EC_U32 nRet;
     ECTask ecTask;
     ecTask.pParam = pParam;
     ecTask.pUserData = pUserData;
-    ecTask.TaskHandler = TaskHandler;
+    ecTask.TaskProcEntry = TaskProcEntry;
     ECAutoLock AutoLock(&m_mtxTaskQueue);
     {
         nRet = m_pTaskQueue->Push(ecTask);
@@ -165,9 +166,9 @@ void* ECTaskWorker::TaskThreadEntry(void* pArg)
                 ECTask ecTask;
                 EC_U32 nRet = pTaskWorker->m_pTaskQueue->Pop(&ecTask);
                 if( (EC_Err_None == nRet) &&
-                    (ecTask.TaskHandler != EC_NULL) )
+                    (ecTask.TaskProcEntry != EC_NULL) )
                 {
-                    ecTask.TaskHandler(ecTask.pUserData, ecTask.pParam);
+                    ecTask.TaskProcEntry(ecTask.pUserData, ecTask.pParam);
                 }
                 pTaskWorker->m_semWorkerRun.SemWait();
             }

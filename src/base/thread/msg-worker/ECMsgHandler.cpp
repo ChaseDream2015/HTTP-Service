@@ -2,7 +2,7 @@
 * This software is developed for study and improve coding skill ...
 *
 * Project:  Enjoyable Coding< EC >
-* Copyright (C) 2014-2016 Gao Peng
+* Copyright (C) Gao Peng, 2015
 
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -22,11 +22,11 @@
 * ECMsgHandler.cpp
 *
 * This file for thread message handler interface.
-* Any module want to use thread to dispathch message, 
+* Any module want to use thread to dispathch message,
 * need to implement this.Here we do part of the implementation
 *
 * Eamil:   epengao@126.com
-* Author:  Peter Gao
+* Author:  Gao Peng
 * Version: Intial first version.
 * --------------------------------------------------------------------
 */
@@ -53,7 +53,7 @@ EC_U32 ECMsgHandler::PushMsg(void* pMsg)
         ECAutoLock Lock(&m_mtxMsgQueue);
         nRet = m_pMsgQueue->Push(pMsg);
     }
-    else 
+    else
         nRet = EC_Err_Memory_Overflow;
 
     return nRet;
