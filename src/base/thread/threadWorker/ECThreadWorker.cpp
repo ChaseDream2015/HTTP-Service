@@ -35,8 +35,9 @@
 
 
 ECThreadWorker::ECThreadWorker(
-    EC_U32 nCapability,
-    EC_PCHAR pThreadWorkerName)
+                               EC_U32 nCapability,
+                               EC_PCHAR pThreadWorkerName
+                              )
 :m_Exit(EC_FALSE)
 ,m_WaitAllStop(EC_FALSE)
 ,m_nActiveThreadCount(0)

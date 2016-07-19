@@ -36,14 +36,6 @@
 
 #define MAX_EXIT_WAIT 500
 
-ECThread::ECThread()
-:m_strThreadName(EC_NULL)
-{
-    m_pThreadArg = EC_NULL;
-    m_ThreadProcEntry = EC_NULL;
-    m_nStatus = ECThreadStatus_Error;
-}
-
 ECThread::ECThread(void*(*ThreadProcEntry)(void*),
                    void* pThreadArg, EC_PCHAR pThreadName)
 :m_pThreadArg(pThreadArg)

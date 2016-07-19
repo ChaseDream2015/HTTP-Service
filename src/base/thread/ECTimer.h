@@ -19,8 +19,8 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 * ---------------------------------------------------------------------
-* ECThread.h
-* This file for ECThread define and encapsulation.
+* ECTimer.h
+* This file for ECTimer define and encapsulation.
 *
 * Eamil:   epengao@126.com
 * Author:  Gao Peng
@@ -28,60 +28,53 @@
 * --------------------------------------------------------------------
 */
 
-#ifndef EC_THREAD_H
-#define EC_THREAD_H
-
-#include "ECString.h"
+#ifndef EC_TIMER_H
+#define EC_TIMER_H
 
 #ifdef EC_OS_Win32
 #include <windows.h>
 #elif defined EC_OS_Linux
-#include <pthread.h>
+/* TODO */
 #elif defined EC_OS_MacOS
 /* TODO */
 #elif defined EC_OS_iOS
-#include <pthread.h>
+#include <time.h>
+#include <signal.h>
+#include <sys/time.h>
 #elif defined EC_OS_Android
 /* TODO */
 #endif
 
-typedef enum
-{
-    ECThreadStatus_Init    = 0,
-    ECThreadStatus_Running = 1,
-    ECThreadStatus_Stoped  = 2,
-    ECThreadStatus_Error   = 0xFF,
-} ECThreadStatus;
-
-typedef struct
-{
-    ECString strThreadName;
-    ECThreadStatus nStatus;
-    ecThreadHandle hTheadHandle;
-}ECThreadInfo;
-
-class ECThread
+class ECTimer
 {
 public:
-    ECThread(void*(*ThreadProcEntry)(void*),
-             void* pThreadArg, EC_PCHAR pTaskWorkerName = EC_NULL);
-    ~ECThread();
-    EC_VOID Start();
-    EC_VOID WaitStop();
-    EC_VOID ForceStop();
-    EC_BOOL IsThreadActive();
-    const ECThreadInfo* GetThreadInfo();
+    ECTimer(void*(*TimerEventCallback)(void*),
+            void* pCallbackArg, EC_BOOL bRepeat = EC_FALSE);
+    ~ECTimer();
+    EC_VOID Start(EC_U32 nTime);   /* millisecond after */
+    EC_VOID Restart(EC_U32 nTime); /* millisecond after */
+    EC_VOID Stop();
 
 private:
-    EC_VOID UpdateStatus();
+    static void TimerEventRoutine(void* pArg);
 
 private:
-    void* m_pThreadArg;
-    void*(*m_ThreadProcEntry)(void*);
-    ECString m_strThreadName;
-    ECThreadInfo m_ThreadInfo;
-    ECThreadStatus m_nStatus;
-    ecThreadHandle m_hTheadHandle;
+    EC_BOOL  m_bRepeat;
+    EC_VOID* m_pCallbackArg;
+    EC_VOID* (*m_hTimerCallback)(void*);
+
+#ifdef EC_OS_Win32
+    UINT_PTR m_nTimerID;
+#elif defined EC_OS_Linux
+    EC_S32 m_nTimerID;
+#elif defined EC_OS_MacOS
+    EC_S32 m_nTimerID;
+#elif defined EC_OS_iOS
+    EC_S32 m_nTimerID;
+    dispatch_source_t m_Source;
+#elif defined EC_OS_Android
+/* TODO */
+#endif
 };
 
-#endif /* EC_THREAD_H */
+#endif /* EC_TIMER_H */
